@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SLAEGA DESIGN SYSTEM
+   Tokens are the single source of truth. See DESIGN.md.
+   ============================================================ */
+
+@theme {
+  /* --- Color palette --------------------------------------- */
+  --color-ink: #0a0a0a;        /* SLAEGA Black   */
+  --color-graphite: #1c1c1c;   /* Graphite       */
+  --color-bone: #f5f3ee;       /* SLAEGA Off White */
+  --color-paper: #ffffff;      /* Pure White     */
+  --color-stone: #8c8982;      /* Stone / metadata */
+  --color-sand: #d8d0c3;       /* Soft Sand      */
+  --color-accent: #ff5a00;     /* SLAEGA Orange — taken from the official logo */
+
+  /* --- Type ------------------------------------------------ */
+  --font-display: var(--font-slaega-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-slaega-body), "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* --- Spacing scale (4 / 8 based) ------------------------- */
+  --spacing: 0.25rem;
+
+  /* --- Motion ---------------------------------------------- */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* --- Layout ---------------------------------------------- */
+  --container-editorial: 1600px;
+}
+
+:root {
+  /* Consumed by the official logo SVG. Never hard-code these into the mark. */
+  --foreground: #0a0a0a;
+  --accent: #ff5a00;
+
+  --header-h: 64px;
+}
+
+@media (min-width: 1024px) {
+  :root { --header-h: 80px; }
+}
+
+/* On dark surfaces the logo's own variables flip; the mark itself is untouched. */
+.on-dark {
+  --foreground: #f5f3ee;
+  --accent: #ff5a00;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body[data-locked="true"] { overflow: hidden; }
+
+::selection { background: var(--color-ink); color: var(--color-bone); }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   TYPOGRAPHY PRIMITIVES
+   ============================================================ */
+
+@utility type-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-size: clamp(2.625rem, 9vw, 7.5rem);
+}
+
+@utility type-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 6vw, 5rem);
+}
+
+@utility type-section {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3.4vw, 3.5rem);
+}
+
+@utility type-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+}
+
+@utility type-body {
+  font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+  line-height: 1.65;
+}
+
+@utility type-meta {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility type-nav {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+@utility shell {
+  width: 100%;
+  max-width: var(--container-editorial);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell { padding-inline: 2.5rem; }
+}
+
+@media (min-width: 1280px) {
+  .shell { padding-inline: 4rem; }
+}
+
+@utility rule-hairline {
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+/* ============================================================
+   INTERACTION
+   ============================================================ */
+
+@utility link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 320ms var(--ease-brand);
+}
+
+.link-underline:hover::after,
+.link-underline[data-active="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ============================================================
+   SCROLL REVEAL — driven by <Reveal />
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 900ms var(--ease-brand),
+    transform 900ms var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The wipe is applied to the children, never to the observed element
+   itself: a clip-path that collapses the box to zero area also hides it
+   from IntersectionObserver, and the reveal could never fire. */
+[data-reveal-image] > * {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1100ms var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal-image="in"] > * { clip-path: inset(0 0 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; }
+  [data-reveal-image] > * { clip-path: none; }
+}
+
+/* Marquee — used once, in the brand statement band. */
+@keyframes slaega-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: slaega-marquee 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Hide scrollbars on horizontal editorial rails. */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Panel + overlay entrances. */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translate3d(100%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slideDown {
+  from { transform: translate3d(0, -12px, 0); opacity: 0; }
+  to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes riseIn {
+  from { transform: translate3d(0, 16px, 0); opacity: 0; }
+  to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
