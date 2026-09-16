@@ -61,7 +61,7 @@ export function Hero() {
 
       <div className="shell relative pb-8">
         <div className="type-meta flex items-center justify-between border-t border-bone/15 pt-5 text-bone/45">
-          <span>Free EU shipping over €80</span>
+          <span>Free delivery over 50\u202F000 FCFA</span>
           <span className="hidden sm:inline">Autumn / Winter 26</span>
           <span>Scroll</span>
         </div>

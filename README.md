@@ -97,9 +97,13 @@ configuration the eventual customisation tool will send:
 
 ```tsx
 <ProductMockup
-  type="hoodie"          // 11 silhouettes: tshirt, oversized-tee, sweatshirt,
-  color="#111110"        //   hoodie, jacket, cap, beanie, bottle, tote,
-  logoInk="#f5f3ee"      //   backpack, socks
+  type="hoodie"          // 18 silhouettes —
+  color="#111110"        //   clothing: tshirt, oversized-tee, sweatshirt,
+  logoInk="#f5f3ee"      //             hoodie, jacket
+                         //   headwear: cap, beanie, bucket-hat
+                         //   carry:    tote, backpack, duffel, laptop-sleeve
+                         //   objects:  bottle, mug, phone-case, notebook,
+                         //             keyring, socks
   logoAsset="lockup"     // lockup | symbol
   logoPosition="center-chest"
   logoSize="large"       // xs | small | medium | large
@@ -130,6 +134,14 @@ decoration, logo anchors, material) and nothing else.
 `Product.images?: string[]` on the product model is the swap point. Populate
 it and the gallery and cards use the photographs; leave it empty and they
 fall back to the vector mockups. The same applies to `LookbookFrame.image`.
+
+## Currency
+
+Prices are integers in the currency's smallest unit — the West African CFA
+franc (XOF) has no subunit, so an integer is a whole franc. `src/lib/currency.ts`
+owns the code, the label, digit grouping and the shipping thresholds, and is
+the only module that formats money. Switching currency is that file plus the
+integers in `catalogue.ts`.
 
 ## Design system
 

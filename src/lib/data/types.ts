@@ -7,16 +7,27 @@
 
 /** Every silhouette the mockup renderer can draw. */
 export type MockupType =
+  /* clothing */
   | "tshirt"
   | "oversized-tee"
   | "hoodie"
   | "sweatshirt"
   | "jacket"
+  /* headwear */
   | "cap"
   | "beanie"
-  | "bottle"
+  | "bucket-hat"
+  /* carry */
   | "tote"
   | "backpack"
+  | "duffel"
+  | "laptop-sleeve"
+  /* everyday objects */
+  | "bottle"
+  | "mug"
+  | "phone-case"
+  | "notebook"
+  | "keyring"
   | "socks";
 
 /** How the official logo is physically applied to the product. */

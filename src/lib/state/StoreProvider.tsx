@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { getProductById } from "@/lib/data/catalogue";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FLAT } from "@/lib/currency";
 import type { CartLine, Product } from "@/lib/data/types";
 
 /* ============================================================
@@ -23,8 +24,6 @@ import type { CartLine, Product } from "@/lib/data/types";
    ============================================================ */
 
 const STORAGE_KEY = "slaega.store.v1";
-const FREE_SHIPPING_THRESHOLD = 8000;
-const SHIPPING_FLAT = 590;
 
 interface StoreState {
   lines: CartLine[];
@@ -297,4 +296,3 @@ export function useStore(): StoreValue {
   return ctx;
 }
 
-export { FREE_SHIPPING_THRESHOLD, SHIPPING_FLAT };

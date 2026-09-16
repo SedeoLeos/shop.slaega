@@ -30,7 +30,7 @@ const HELP = [
   {
     id: "shipping",
     title: "Shipping",
-    body: "Free European delivery over €80, €5.90 below it. Orders leave within 48 hours and arrive in 2–5 working days. Tracking is emailed on dispatch.",
+    body: "Free delivery over 50\u202F000 FCFA, 3\u202F000 FCFA below it. Orders leave within 48 hours and arrive in 2–5 working days. Tracking is sent on dispatch.",
   },
   {
     id: "returns",

@@ -17,7 +17,17 @@ import type { LogoPosition, MockupType } from "@/lib/data/types";
 export const STAGE = { w: 1000, h: 1250 } as const;
 
 /** Surface response to light — drives gradient strength and grain. */
-export type Material = "cotton" | "fleece" | "knit" | "canvas" | "nylon" | "metal";
+export type Material =
+  | "cotton"
+  | "fleece"
+  | "knit"
+  | "canvas"
+  | "nylon"
+  | "metal"
+  | "ceramic"
+  | "leather"
+  | "paper"
+  | "moulded";
 
 export interface Deco {
   d: string;
@@ -513,6 +523,228 @@ const SOCKS: Silhouette = {
   light: { cx: 386, cy: 560, r: 320 },
 };
 
+
+/* ------------------------------------------------------------
+   HEADWEAR — bucket hat
+   ------------------------------------------------------------ */
+
+const BUCKET_HAT: Silhouette = {
+  body:
+    "M 340 578 C 340 418 404 350 500 350 C 596 350 660 418 660 578 " +
+    "C 706 586 752 614 762 650 C 768 676 746 694 712 700 " +
+    "C 646 712 574 718 500 718 C 426 718 354 712 288 700 " +
+    "C 254 694 232 676 238 650 C 248 614 294 586 340 578 Z",
+  deco: [
+    /* crown seams */
+    { d: "M 344 500 C 404 488 596 488 656 500", tone: -0.14, width: 3, dash: "10 9" },
+    { d: "M 342 576 C 404 564 596 564 658 576", tone: -0.22, width: 5 },
+    /* brim topstitch */
+    { d: "M 286 638 C 356 658 428 666 500 666 C 572 666 644 658 714 638", tone: -0.14, width: 3, dash: "10 9" },
+    { d: "M 258 668 C 340 688 420 696 500 696 C 580 696 660 688 742 668", tone: -0.14, width: 3, dash: "10 9" },
+    /* eyelets */
+    { d: "M 410 522 m -6 0 a 6 6 0 1 0 12 0 a 6 6 0 1 0 -12 0", tone: -0.35, fill: true },
+    { d: "M 590 522 m -6 0 a 6 6 0 1 0 12 0 a 6 6 0 1 0 -12 0", tone: -0.35, fill: true },
+    /* shading */
+    { d: "M 366 408 C 340 478 332 536 334 576", tone: -0.32, width: 48, opacity: 0.4, blur: 24 },
+    { d: "M 634 408 C 660 478 668 536 666 576", tone: -0.36, width: 46, opacity: 0.42, blur: 24 },
+    { d: "M 458 380 C 434 448 428 520 430 574", tone: 0.26, width: 50, opacity: 0.28, blur: 28 },
+    { d: "M 310 628 C 400 650 600 650 690 628", tone: -0.26, width: 34, opacity: 0.35, blur: 22 },
+  ],
+  anchors: {
+    "front-panel": { x: 500, y: 468, width: 148 },
+    center: { x: 500, y: 468, width: 148 },
+  },
+  material: "cotton",
+  shadow: { cx: 500, cy: 732, rx: 236, ry: 26 },
+  light: { cx: 430, cy: 440, r: 280 },
+};
+
+/* ------------------------------------------------------------
+   CARRY — duffel, laptop sleeve
+   ------------------------------------------------------------ */
+
+const DUFFEL: Silhouette = {
+  body:
+    "M 168 594 C 168 546 218 516 288 510 C 430 500 570 500 712 510 " +
+    "C 782 516 832 546 832 594 L 832 772 C 832 820 782 850 712 856 " +
+    "C 570 866 430 866 288 856 C 218 850 168 820 168 772 Z",
+  deco: [
+    /* end panels */
+    { d: "M 252 512 C 240 590 240 776 252 852", tone: -0.2, width: 5 },
+    { d: "M 748 512 C 760 590 760 776 748 852", tone: -0.2, width: 5 },
+    /* zip across the top */
+    { d: "M 262 552 C 400 534 600 534 738 552", tone: -0.34, width: 9 },
+    { d: "M 262 566 C 400 548 600 548 738 566", tone: 0.16, width: 3, dash: "6 6", opacity: 0.6 },
+    /* base seam */
+    { d: "M 230 812 C 390 832 610 832 770 812", tone: -0.16, width: 3, dash: "11 9" },
+    /* body shading */
+    { d: "M 274 546 C 258 640 258 730 274 830", tone: -0.3, width: 46, opacity: 0.4, blur: 26 },
+    { d: "M 726 546 C 742 640 742 730 726 830", tone: -0.34, width: 48, opacity: 0.42, blur: 28 },
+    { d: "M 450 570 C 442 650 444 740 454 832", tone: 0.22, width: 70, opacity: 0.24, blur: 32 },
+  ],
+  over: [
+    /* grab handles, wrapped at the centre */
+    { d: "M 412 512 C 412 424 588 424 588 512", tone: -0.3, width: 18 },
+    { d: "M 466 442 L 534 442", tone: -0.45, width: 28 },
+  ],
+  anchors: {
+    center: { x: 500, y: 686, width: 230 },
+    "front-panel": { x: 500, y: 686, width: 230 },
+  },
+  material: "nylon",
+  shadow: { cx: 500, cy: 868, rx: 300, ry: 26 },
+  light: { cx: 400, cy: 600, r: 340 },
+};
+
+const LAPTOP_SLEEVE: Silhouette = {
+  body:
+    "M 176 426 C 176 394 202 368 234 368 L 766 368 " +
+    "C 798 368 824 394 824 426 L 824 806 C 824 838 798 864 766 864 " +
+    "L 234 864 C 202 864 176 838 176 806 Z",
+  deco: [
+    /* zip line */
+    { d: "M 214 414 L 786 414", tone: -0.32, width: 8 },
+    { d: "M 214 414 L 786 414", tone: 0.18, width: 3, dash: "7 7", opacity: 0.55 },
+    /* felt edge stitch */
+    { d: "M 208 838 L 792 838", tone: -0.14, width: 3, dash: "11 9" },
+    /* body shading */
+    { d: "M 240 420 C 226 540 226 700 240 852", tone: -0.28, width: 40, opacity: 0.4, blur: 26 },
+    { d: "M 760 420 C 774 540 774 700 760 852", tone: -0.32, width: 42, opacity: 0.42, blur: 28 },
+    { d: "M 440 470 C 430 580 432 700 442 848", tone: 0.22, width: 76, opacity: 0.22, blur: 34 },
+  ],
+  over: [
+    /* zip puller */
+    { d: "M 786 414 L 812 414", tone: -0.5, width: 14 },
+  ],
+  anchors: {
+    center: { x: 500, y: 640, width: 230 },
+    "front-panel": { x: 500, y: 640, width: 230 },
+  },
+  material: "canvas",
+  shadow: { cx: 500, cy: 876, rx: 300, ry: 24 },
+  light: { cx: 400, cy: 540, r: 330 },
+};
+
+/* ------------------------------------------------------------
+   EVERYDAY OBJECTS — mug, phone case, notebook, keyring
+   ------------------------------------------------------------ */
+
+const MUG: Silhouette = {
+  body:
+    "M 340 400 C 340 386 352 376 368 376 L 632 376 " +
+    "C 648 376 660 386 660 400 L 650 890 C 648 932 620 956 580 956 " +
+    "L 420 956 C 380 956 352 932 350 890 Z",
+  behind: [
+    /* handle */
+    { d: "M 658 486 C 762 486 792 560 792 628 C 792 700 758 770 658 776", tone: -0.26, width: 34 },
+  ],
+  deco: [
+    /* opening */
+    { d: "M 500 382 m -160 0 a 160 24 0 1 0 320 0 a 160 24 0 1 0 -320 0", tone: -0.42, fill: true },
+    { d: "M 500 382 m -140 0 a 140 19 0 1 0 280 0 a 140 19 0 1 0 -280 0", tone: -0.6, fill: true },
+    /* glaze highlights */
+    { d: "M 392 430 L 386 900", tone: 0.5, width: 30, opacity: 0.5, blur: 16 },
+    { d: "M 624 440 L 630 890", tone: -0.34, width: 34, opacity: 0.5, blur: 18 },
+    { d: "M 470 430 L 466 910", tone: 0.2, width: 54, opacity: 0.3, blur: 26 },
+    /* foot */
+    { d: "M 372 930 C 440 950 560 950 628 930", tone: -0.24, width: 12 },
+  ],
+  anchors: {
+    center: { x: 496, y: 660, width: 200 },
+    "front-panel": { x: 496, y: 660, width: 200 },
+  },
+  material: "ceramic",
+  shadow: { cx: 510, cy: 966, rx: 190, ry: 22 },
+  light: { cx: 410, cy: 560, r: 300 },
+};
+
+const PHONE_CASE: Silhouette = {
+  body:
+    "M 348 352 C 348 316 378 288 414 288 L 586 288 " +
+    "C 622 288 652 316 652 352 L 652 898 C 652 934 622 962 586 962 " +
+    "L 414 962 C 378 962 348 934 348 898 Z",
+  deco: [
+    /* inner lip */
+    { d: "M 364 356 C 364 328 388 306 416 306 L 584 306 C 612 306 636 328 636 356 L 636 894 C 636 922 612 944 584 944 L 416 944 C 388 944 364 922 364 894 Z", tone: -0.18, width: 4 },
+    /* camera module */
+    { d: "M 392 342 L 486 342 C 500 342 508 352 508 364 L 508 458 C 508 470 500 480 486 480 L 392 480 C 378 480 370 470 370 458 L 370 364 C 370 352 378 342 392 342 Z", tone: -0.3, fill: true },
+    { d: "M 408 384 m -20 0 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0", tone: -0.65, fill: true },
+    { d: "M 470 384 m -20 0 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0", tone: -0.65, fill: true },
+    { d: "M 408 440 m -20 0 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0", tone: -0.65, fill: true },
+    /* side buttons */
+    { d: "M 348 420 L 348 470", tone: -0.35, width: 10 },
+    { d: "M 348 500 L 348 560", tone: -0.35, width: 10 },
+    { d: "M 652 440 L 652 530", tone: -0.35, width: 10 },
+    /* moulded sheen */
+    { d: "M 392 520 L 386 930", tone: 0.42, width: 24, opacity: 0.4, blur: 16 },
+    { d: "M 616 520 L 622 930", tone: -0.3, width: 26, opacity: 0.45, blur: 18 },
+  ],
+  anchors: {
+    center: { x: 500, y: 700, width: 150 },
+    "front-panel": { x: 500, y: 700, width: 150 },
+  },
+  material: "moulded",
+  shadow: { cx: 500, cy: 972, rx: 150, ry: 20 },
+  light: { cx: 420, cy: 560, r: 280 },
+};
+
+const NOTEBOOK: Silhouette = {
+  body:
+    "M 288 322 C 288 304 302 290 320 290 L 690 290 " +
+    "C 708 290 722 304 722 322 L 722 926 C 722 944 708 958 690 958 " +
+    "L 320 958 C 302 958 288 944 288 926 Z",
+  deco: [
+    /* page block along the fore edge */
+    { d: "M 708 304 L 708 944", tone: 0.42, width: 24 },
+    { d: "M 700 304 L 700 944", tone: -0.2, width: 3 },
+    /* spine */
+    { d: "M 306 296 L 306 952", tone: -0.26, width: 32 },
+    { d: "M 324 296 L 324 952", tone: -0.16, width: 3 },
+    /* elastic closure */
+    { d: "M 652 290 L 652 958", tone: -0.4, width: 11 },
+    /* cover grain */
+    { d: "M 386 340 C 374 500 374 760 384 940", tone: -0.24, width: 40, opacity: 0.35, blur: 24 },
+    { d: "M 590 340 C 602 500 602 760 592 940", tone: 0.2, width: 44, opacity: 0.22, blur: 28 },
+  ],
+  anchors: {
+    center: { x: 490, y: 624, width: 210 },
+    "front-panel": { x: 490, y: 624, width: 210 },
+  },
+  material: "paper",
+  shadow: { cx: 500, cy: 970, rx: 226, ry: 20 },
+  light: { cx: 410, cy: 540, r: 300 },
+};
+
+const KEYRING: Silhouette = {
+  body:
+    "M 424 428 C 424 406 442 388 464 388 L 536 388 " +
+    "C 558 388 576 406 576 428 L 576 812 C 576 834 558 852 536 852 " +
+    "L 464 852 C 442 852 424 834 424 812 Z",
+  behind: [
+    /* split ring */
+    { d: "M 500 322 m -70 0 a 70 70 0 1 0 140 0 a 70 70 0 1 0 -140 0", tone: 0.4, width: 16 },
+    { d: "M 448 278 A 70 70 0 0 1 560 288", tone: 0.68, width: 7, opacity: 0.8 },
+  ],
+  deco: [
+    /* rivet hole */
+    { d: "M 500 430 m -17 0 a 17 17 0 1 0 34 0 a 17 17 0 1 0 -34 0", tone: -0.55, fill: true },
+    { d: "M 500 430 m -25 0 a 25 25 0 1 0 50 0 a 25 25 0 1 0 -50 0", tone: 0.3, width: 4 },
+    /* edge stitching */
+    { d: "M 442 412 L 442 828", tone: -0.22, width: 3, dash: "9 8" },
+    { d: "M 558 412 L 558 828", tone: -0.22, width: 3, dash: "9 8" },
+    /* leather shading */
+    { d: "M 460 470 C 452 600 452 720 460 840", tone: -0.26, width: 22, opacity: 0.4, blur: 16 },
+    { d: "M 540 470 C 548 600 548 720 540 840", tone: 0.22, width: 20, opacity: 0.3, blur: 18 },
+  ],
+  anchors: {
+    center: { x: 500, y: 640, width: 110 },
+    "front-panel": { x: 500, y: 640, width: 110 },
+  },
+  material: "leather",
+  shadow: { cx: 500, cy: 862, rx: 110, ry: 16 },
+  light: { cx: 450, cy: 560, r: 240 },
+};
+
 export const SILHOUETTES: Record<MockupType, Silhouette> = {
   tshirt: TSHIRT,
   "oversized-tee": OVERSIZED_TEE,
@@ -521,9 +753,16 @@ export const SILHOUETTES: Record<MockupType, Silhouette> = {
   jacket: JACKET,
   cap: CAP,
   beanie: BEANIE,
-  bottle: BOTTLE,
+  "bucket-hat": BUCKET_HAT,
   tote: TOTE,
   backpack: BACKPACK,
+  duffel: DUFFEL,
+  "laptop-sleeve": LAPTOP_SLEEVE,
+  bottle: BOTTLE,
+  mug: MUG,
+  "phone-case": PHONE_CASE,
+  notebook: NOTEBOOK,
+  keyring: KEYRING,
   socks: SOCKS,
 };
 
@@ -543,6 +782,10 @@ export const MATERIAL_GRAIN: Record<Material, number> = {
   canvas: 0.22,
   nylon: 0.1,
   metal: 0.05,
+  ceramic: 0.04,
+  leather: 0.2,
+  paper: 0.14,
+  moulded: 0.06,
 };
 
 export function resolveAnchor(

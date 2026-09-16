@@ -30,7 +30,7 @@ const SORTS: { key: SortKey; label: string }[] = [
   { key: "price-desc", label: "Price high to low" },
 ];
 
-const PRICE_STEPS = [3000, 5000, 8000, PRICE_BOUNDS.max + 1];
+const PRICE_STEPS = [15_000, 25_000, 50_000, PRICE_BOUNDS.max + 1];
 
 function sortProducts(list: Product[], sort: SortKey): Product[] {
   const copy = [...list];

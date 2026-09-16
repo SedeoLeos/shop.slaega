@@ -55,6 +55,13 @@ const PIECES: PieceSpec[] = [
     defaults: { position: "front-panel", size: "medium", treatment: "embroidery", asset: "symbol" },
   },
   {
+    id: "bucket-hat",
+    label: "Bucket hat",
+    positions: ["front-panel"],
+    treatments: ["embroidery", "print"],
+    defaults: { position: "front-panel", size: "medium", treatment: "embroidery", asset: "symbol" },
+  },
+  {
     id: "bottle",
     label: "Bottle",
     positions: ["center"],
@@ -62,11 +69,67 @@ const PIECES: PieceSpec[] = [
     defaults: { position: "center", size: "medium", treatment: "engrave", asset: "lockup" },
   },
   {
+    id: "mug",
+    label: "Mug",
+    positions: ["center"],
+    treatments: ["print", "engrave"],
+    defaults: { position: "center", size: "medium", treatment: "print", asset: "lockup" },
+  },
+  {
     id: "tote",
     label: "Tote bag",
     positions: ["center"],
     treatments: ["print", "emboss"],
     defaults: { position: "center", size: "small", treatment: "print", asset: "lockup" },
+  },
+  {
+    id: "duffel",
+    label: "Duffel",
+    positions: ["center"],
+    treatments: ["print", "emboss", "embroidery"],
+    defaults: { position: "center", size: "medium", treatment: "print", asset: "lockup" },
+  },
+  {
+    id: "backpack",
+    label: "Backpack",
+    positions: ["center"],
+    treatments: ["emboss", "print", "embroidery"],
+    defaults: { position: "center", size: "small", treatment: "emboss", asset: "symbol" },
+  },
+  {
+    id: "laptop-sleeve",
+    label: "Laptop sleeve",
+    positions: ["center"],
+    treatments: ["print", "emboss"],
+    defaults: { position: "center", size: "small", treatment: "print", asset: "lockup" },
+  },
+  {
+    id: "phone-case",
+    label: "Phone case",
+    positions: ["center"],
+    treatments: ["emboss", "print", "engrave"],
+    defaults: { position: "center", size: "medium", treatment: "emboss", asset: "symbol" },
+  },
+  {
+    id: "notebook",
+    label: "Notebook",
+    positions: ["center"],
+    treatments: ["emboss", "print"],
+    defaults: { position: "center", size: "small", treatment: "emboss", asset: "symbol" },
+  },
+  {
+    id: "keyring",
+    label: "Keyring",
+    positions: ["center"],
+    treatments: ["emboss", "engrave"],
+    defaults: { position: "center", size: "medium", treatment: "emboss", asset: "symbol" },
+  },
+  {
+    id: "socks",
+    label: "Socks",
+    positions: ["cuff"],
+    treatments: ["woven", "embroidery"],
+    defaults: { position: "cuff", size: "xs", treatment: "woven", asset: "symbol" },
   },
 ];
 
@@ -172,9 +235,9 @@ export function MockupStudio() {
           One mark. Every product.
         </Reveal>
         <Reveal as="p" className="type-body mt-5 max-w-xl text-bone/60" delay={130}>
-          The official SLAEGA logo, applied across the range. Change the piece,
-          the colourway, the placement and the application — the mark itself
-          never changes.
+          The official SLAEGA logo, applied across the range — clothing,
+          headwear, bags and everyday objects. Change the piece, the colourway,
+          the placement and the application; the mark itself never changes.
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12">
