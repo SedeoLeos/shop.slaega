@@ -52,10 +52,17 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
           </div>
         </Link>
 
-        {product.isNew && (
-          <span className="type-meta absolute left-0 top-0 bg-accent px-3 py-1.5 text-ink">
-            New
+        {product.edition ? (
+          <span className="type-meta absolute left-0 top-0 flex items-center gap-2 bg-accent px-3 py-1.5 text-ink">
+            {product.edition.label}
+            <span className="opacity-60">{product.edition.runSize} pcs</span>
           </span>
+        ) : (
+          product.isNew && (
+            <span className="type-meta absolute left-0 top-0 bg-accent px-3 py-1.5 text-ink">
+              New
+            </span>
+          )
         )}
 
         <button

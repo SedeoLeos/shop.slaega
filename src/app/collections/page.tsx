@@ -15,10 +15,22 @@ export const metadata: Metadata = {
     "Drop 01, Essentials and Movement — the three lines that make up the SLAEGA range.",
 };
 
-const ART: Record<string, { scene: SceneName; piece: MockupType; color: string; ink: string }> = {
+type Art = { scene: SceneName; piece: MockupType; color: string; ink: string };
+
+const ART: Record<string, Art> = {
+  signature: { scene: "shadow", piece: "hoodie", color: "#6b5f54", ink: "#f5f3ee" },
   "drop-01": { scene: "night", piece: "hoodie", color: "#111110", ink: "#f5f3ee" },
   essentials: { scene: "studio", piece: "tshirt", color: "#eae5db", ink: "#0a0a0a" },
   movement: { scene: "dusk", piece: "jacket", color: "#3a3d42", ink: "#f5f3ee" },
+};
+
+/* A collection added without art direction still renders, rather than
+   taking the page down at build time. */
+const FALLBACK_ART: Art = {
+  scene: "studio",
+  piece: "tshirt",
+  color: "#eae5db",
+  ink: "#0a0a0a",
 };
 
 export default function CollectionsPage() {
@@ -33,7 +45,7 @@ export default function CollectionsPage() {
       </header>
 
       {COLLECTIONS.map((collection, index) => {
-        const art = ART[collection.id];
+        const art = ART[collection.id] ?? FALLBACK_ART;
         const products = PRODUCTS.filter((p) => p.collection === collection.id);
         const dark = collection.id !== "essentials";
 

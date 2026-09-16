@@ -154,6 +154,25 @@ goes through `<ProductVisual />`, which uses the photograph when the colourway
 has one and draws the vector mockup when it does not. A shoot can therefore
 land one product, or one colourway, at a time.
 
+## Limited runs
+
+`Product.edition` marks a limited run — its kind (`signed`, `limited`,
+`numbered`), the size of the run, the drop it belongs to, and what the buyer
+actually receives. Where editions appear is deliberate:
+
+- **Shop, Featured sort** — editions lead, then curation order. Every other
+  sort (newest, price) treats them as ordinary products, so a price sort is
+  not silently overridden.
+- **Shop, Edition filter** — a facet alongside category and collection.
+- **Product card** — the edition badge replaces the NEW badge; scarcity is
+  the stronger signal and two badges would fight.
+- **Homepage** — a dedicated dark band between New Arrivals and the category
+  blocks, rather than mixed into the product wall.
+- **Product page** — run size and authentication, set against the accent rule.
+
+Editions also form their own collection (`signature`), so they appear on
+/collections with the seasonal lines.
+
 ## Currency
 
 Prices are integers in the currency's smallest unit — the West African CFA

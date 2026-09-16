@@ -85,6 +85,21 @@ export interface ProductDetail {
   value: string;
 }
 
+/** How a limited run is authenticated. */
+export type EditionKind = "signed" | "limited" | "numbered";
+
+export interface Edition {
+  kind: EditionKind;
+  /** Badge text, e.g. "Signature Series". */
+  label: string;
+  /** Total pieces in the run. */
+  runSize: number;
+  /** The drop it belongs to, e.g. "Drop 01". */
+  drop: string;
+  /** What the buyer actually receives — shown on the product page. */
+  note: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -98,6 +113,8 @@ export interface Product {
   /** ISO date, drives the "Newest" sort and the NEW badge. */
   releasedAt: string;
   isNew?: boolean;
+  /** Present on limited runs. Editions lead the Featured ordering. */
+  edition?: Edition;
   tagline: string;
   description: string;
   colors: ColorOption[];
@@ -112,7 +129,7 @@ export interface Product {
 }
 
 export type CategoryId = "clothing" | "headwear" | "accessories";
-export type CollectionId = "drop-01" | "essentials" | "movement";
+export type CollectionId = "signature" | "drop-01" | "essentials" | "movement";
 
 export interface Category {
   id: CategoryId;

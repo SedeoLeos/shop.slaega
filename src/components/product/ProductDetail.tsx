@@ -83,6 +83,15 @@ export function ProductDetail({
           <ProductGallery product={product} color={color} />
 
           <div className="lg:sticky lg:top-28 lg:self-start lg:pt-2">
+            {product.edition && (
+              <p className="type-meta mb-4 inline-flex items-center gap-3 bg-accent px-3 py-1.5 text-ink">
+                {product.edition.label}
+                <span className="opacity-60">
+                  {product.edition.drop} · {product.edition.runSize} pieces
+                </span>
+              </p>
+            )}
+
             <h1 className="type-display">{product.name}</h1>
             <p className="type-title mt-4 tabular-nums">{formatPrice(product.price)}</p>
             <p className="type-body mt-6 max-w-prose text-graphite/85">{product.description}</p>
@@ -91,6 +100,17 @@ export function ProductDetail({
               {TREATMENT_COPY[product.mockup.logoTreatment]} SLAEGA mark ·{" "}
               {POSITION_COPY[product.mockup.logoPosition]}
             </p>
+
+            {product.edition && (
+              <div className="mt-8 border-l-2 border-accent pl-5">
+                <p className="type-meta text-stone">
+                  Edition of {product.edition.runSize}
+                </p>
+                <p className="type-body mt-2 max-w-prose text-graphite/85">
+                  {product.edition.note}
+                </p>
+              </div>
+            )}
 
             <fieldset className="mt-10">
               <legend className="type-meta text-stone">

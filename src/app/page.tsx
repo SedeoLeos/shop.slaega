@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { NewArrivals } from "@/components/sections/NewArrivals";
+import { SignatureSeries } from "@/components/sections/SignatureSeries";
 import { ShopByCategory } from "@/components/sections/ShopByCategory";
 import { CollectionFilm } from "@/components/sections/CollectionFilm";
 import { MockupStudio } from "@/components/sections/MockupStudio";
@@ -18,6 +19,7 @@ export default function HomePage() {
     <>
       <Hero />
       <NewArrivals />
+      <SignatureSeries />
       <ShopByCategory />
       <StatementBand />
       <CollectionFilm />

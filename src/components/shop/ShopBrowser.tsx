@@ -32,6 +32,12 @@ const SORTS: { key: SortKey; label: string }[] = [
 
 const PRICE_STEPS = [15_000, 25_000, 50_000, PRICE_BOUNDS.max + 1];
 
+const EDITION_KINDS: { id: string; label: string }[] = [
+  { id: "signed", label: "Signed" },
+  { id: "limited", label: "Limited" },
+  { id: "numbered", label: "Numbered" },
+];
+
 function sortProducts(list: Product[], sort: SortKey): Product[] {
   const copy = [...list];
   switch (sort) {
@@ -44,7 +50,11 @@ function sortProducts(list: Product[], sort: SortKey): Product[] {
     case "price-desc":
       return copy.sort((a, b) => b.price - a.price);
     default:
-      return copy.sort((a, b) => a.rank - b.rank);
+      /* Featured opens with the limited runs, then follows curation order. */
+      return copy.sort(
+        (a, b) =>
+          Number(Boolean(b.edition)) - Number(Boolean(a.edition)) || a.rank - b.rank,
+      );
   }
 }
 
@@ -117,6 +127,7 @@ export function ShopBrowser() {
   const categories = read("category");
   const collections = read("collection");
   const sizes = read("size");
+  const editions = read("edition");
   const colors = read("color");
   const maxPrice = Number(params.get("max")) || 0;
   const query = params.toString();
@@ -142,16 +153,22 @@ export function ShopBrowser() {
     const list = PRODUCTS.filter((p) => {
       if (categories.length && !categories.includes(p.category)) return false;
       if (collections.length && !collections.includes(p.collection)) return false;
+      if (editions.length && !(p.edition && editions.includes(p.edition.kind))) return false;
       if (sizes.length && !p.sizes.some((s) => sizes.includes(s))) return false;
       if (colors.length && !p.colors.some((c) => colors.includes(c.id))) return false;
       if (maxPrice && p.price > maxPrice) return false;
       return true;
     });
     return sortProducts(list, sort);
-  }, [categories, collections, sizes, colors, maxPrice, sort]);
+  }, [categories, collections, editions, sizes, colors, maxPrice, sort]);
 
   const activeCount =
-    categories.length + collections.length + sizes.length + colors.length + (maxPrice ? 1 : 0);
+    categories.length +
+    collections.length +
+    editions.length +
+    sizes.length +
+    colors.length +
+    (maxPrice ? 1 : 0);
 
   const filters = (
     <>
@@ -173,6 +190,17 @@ export function ShopBrowser() {
             label={c.name}
             checked={collections.includes(c.id)}
             onChange={() => toggle("collection", c.id)}
+          />
+        ))}
+      </FilterGroup>
+
+      <FilterGroup title="Edition">
+        {EDITION_KINDS.map((e) => (
+          <Check
+            key={e.id}
+            label={e.label}
+            checked={editions.includes(e.id)}
+            onChange={() => toggle("edition", e.id)}
           />
         ))}
       </FilterGroup>
