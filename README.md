@@ -177,6 +177,29 @@ goes through `<ProductVisual />`, which uses the photograph when the colourway
 has one and draws the vector mockup when it does not. A shoot can therefore
 land one product, or one colourway, at a time.
 
+## Collections
+
+SLAEGA is the house; the collections are its voices. They share the mark, the
+type and the palette — what changes is the subject, the light and the rhythm
+of the copy.
+
+| Collection | Statement | What it is |
+| --- | --- | --- |
+| Ozali | *Ozali. C'est toi.* | The way in — worn without becoming anyone else |
+| Seria | *Le sérieux se porte.* | Tailoring, men and women. Being serious has no gender |
+| Berser K | *Aimer sans permission.* | Love, and the love that is not allowed |
+| Aza Vrai | *Le luxe sans bruit.* | Luxury inside the simplicity. The mark at its quietest |
+| SLAEGA 19 | *19 août.* | The dated collection. Signed, numbered, finite |
+| King Sedeo Leos | — | Not yet written |
+
+Statements stay in French. They are the brand's own words, and a French line
+inside an English store reads as intentional in fashion — it is not an
+oversight waiting on translation.
+
+A collection with no pieces renders an empty state rather than an empty grid.
+Products are assigned where they genuinely belong; none were moved to make a
+page look full.
+
 ## Limited runs
 
 `Product.edition` marks a limited run — its kind (`signed`, `limited`,

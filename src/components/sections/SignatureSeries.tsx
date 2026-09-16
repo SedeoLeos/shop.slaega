@@ -5,12 +5,12 @@ import { ArrowIcon } from "@/components/ui/Icons";
 import { getEditions } from "@/lib/data/catalogue";
 
 /* ============================================================
-   Signature Series
+   SLAEGA 19
    ------------------------------------------------------------
-   The limited runs, given their own band rather than being mixed
-   into the product wall. Dark ground, because scarcity should not
-   compete with the everyday range for attention — and because the
-   accent only earns its place against black.
+   The dated collection: limited runs, in memory of the nineteenth
+   of August. Given its own band rather than mixed into the product
+   wall — a date is not a category, and scarcity should not compete
+   with the everyday range for attention.
    ============================================================ */
 export function SignatureSeries() {
   const editions = getEditions();
@@ -22,16 +22,16 @@ export function SignatureSeries() {
         <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <div>
             <Reveal as="p" className="type-meta text-primary">
-              Signed · Numbered · Finite
+              19 août
             </Reveal>
             <Reveal as="h2" className="type-display mt-4 max-w-[14ch]" delay={70}>
-              Signature Series
+              SLAEGA 19
             </Reveal>
           </div>
           <Reveal as="p" className="type-body max-w-sm text-muted-foreground" delay={130}>
-            Short runs, made once. Each piece is numbered against the size of
-            its run and carries a signed label. When a run closes it is not
-            remade.
+            In memory of the nineteenth of August. Signed, numbered, finite —
+            each piece carries the size of its run, and when a run closes it is
+            not remade.
           </Reveal>
         </div>
 
@@ -49,10 +49,10 @@ export function SignatureSeries() {
 
         <Reveal className="mt-12 border-t border-border pt-8">
           <Link
-            href="/shop/?collection=signature"
+            href="/shop/?collection=slaega-19"
             className="type-meta group inline-flex h-14 items-center gap-3 bg-foreground px-8 text-background transition-colors duration-[var(--duration-fast)] hover:bg-primary hover:text-primary-foreground"
           >
-            See the series
+            See the collection
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5" />
           </Link>
         </Reveal>

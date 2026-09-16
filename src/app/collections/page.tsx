@@ -6,6 +6,7 @@ import { ProductMockup } from "@/components/product/mockup/ProductMockup";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/Icons";
 import { COLLECTIONS, MATERIALS, PRODUCTS } from "@/lib/data/catalogue";
+import { EmptyState } from "@/components/ui/States";
 import type { SceneName } from "@/components/sections/Scene";
 import type { MockupType } from "@/lib/data/types";
 
@@ -18,10 +19,13 @@ export const metadata: Metadata = {
 type Art = { scene: SceneName; piece: MockupType; material: keyof typeof MATERIALS };
 
 const ART: Record<string, Art> = {
-  signature: { scene: "shadow", piece: "hoodie", material: "clay" },
-  "drop-01": { scene: "night", piece: "hoodie", material: "black" },
-  essentials: { scene: "studio", piece: "tshirt", material: "bone" },
-  movement: { scene: "dusk", piece: "jacket", material: "slate" },
+  /* Each collection gets the light its subject asks for. */
+  ozali: { scene: "studio", piece: "tshirt", material: "bone" },
+  seria: { scene: "concrete", piece: "jacket", material: "slate" },
+  "berser-k": { scene: "dusk", piece: "hoodie", material: "clay" },
+  "aza-vrai": { scene: "sand", piece: "tote", material: "bone" },
+  "slaega-19": { scene: "night", piece: "hoodie", material: "black" },
+  "king-sedeo-leos": { scene: "shadow", piece: "jacket", material: "black" },
 };
 
 /* A collection added without art direction still renders, rather than
@@ -47,7 +51,7 @@ export default function CollectionsPage() {
         const art = ART[collection.id] ?? FALLBACK_ART;
         const material = MATERIALS[art.material];
         const products = PRODUCTS.filter((p) => p.collection === collection.id);
-        const dark = collection.id !== "essentials";
+        const dark = index % 2 === 1;
 
         return (
           <section
@@ -88,15 +92,13 @@ export default function CollectionsPage() {
                     className="type-display mt-5 max-w-[14ch]"
                     delay={70}
                   >
-                    {collection.statement}
+                    {collection.statement || collection.name}
                   </Reveal>
-                  <Reveal
-                    as="p"
-                    className={`type-body mt-7 max-w-md ${dark ? "text-muted-foreground" : "text-muted-foreground"}`}
-                    delay={130}
-                  >
-                    {collection.description}
-                  </Reveal>
+                  {collection.description && (
+                    <Reveal as="p" className="type-body mt-7 max-w-md text-muted-foreground" delay={130}>
+                      {collection.description}
+                    </Reveal>
+                  )}
                   <Reveal delay={190}>
                     <Link
                       href={`/shop/?collection=${collection.id}`}
@@ -111,11 +113,19 @@ export default function CollectionsPage() {
                 </div>
               </div>
 
-              <div className="mt-16 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 lg:mt-24 lg:gap-x-8">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {products.length > 0 ? (
+                <div className="mt-16 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 lg:mt-24 lg:gap-x-8">
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="This collection is still being made."
+                  body="The pieces are not in the store yet. It will open here when they are."
+                  className="mt-8 lg:mt-12"
+                />
+              )}
             </div>
           </section>
         );

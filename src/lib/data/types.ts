@@ -151,7 +151,17 @@ export interface Product {
 }
 
 export type CategoryId = "clothing" | "headwear" | "accessories";
-export type CollectionId = "signature" | "drop-01" | "essentials" | "movement";
+/**
+ * The real SLAEGA collections. Each is a voice of the house, not a
+ * separate brand — the mark, the type and the palette stay common.
+ */
+export type CollectionId =
+  | "seria"
+  | "berser-k"
+  | "ozali"
+  | "aza-vrai"
+  | "slaega-19"
+  | "king-sedeo-leos";
 
 export interface Category {
   id: CategoryId;
