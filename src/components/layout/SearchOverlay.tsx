@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ProductMockup } from "@/components/product/mockup/ProductMockup";
+import { ProductVisual } from "@/components/product/ProductVisual";
 import { CloseIcon, SearchIcon } from "@/components/ui/Icons";
 import { PRODUCTS } from "@/lib/data/catalogue";
 import { SUGGESTED_SEARCHES } from "@/lib/data/editorial";
@@ -116,14 +116,9 @@ export function SearchOverlay() {
                   <li key={product.id}>
                     <Link href={`/product/${product.slug}/`} onClick={closeSearch} className="group block">
                       <div className="aspect-4/5 overflow-hidden bg-[#efece5]">
-                        <ProductMockup
-                          type={product.mockup.type}
-                          color={product.colors[0].hex}
-                          logoInk={product.colors[0].logoInk}
-                          logoAsset={product.mockup.logoAsset}
-                          logoPosition={product.mockup.logoPosition}
-                          logoSize={product.mockup.logoSize}
-                          logoTreatment={product.mockup.logoTreatment}
+                        <ProductVisual
+                          product={product}
+                          color={product.colors[0]}
                           className="h-full w-full transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
                         />
                       </div>

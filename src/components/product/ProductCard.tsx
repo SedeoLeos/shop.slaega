@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ProductMockup } from "./mockup/ProductMockup";
+import { ProductVisual } from "./ProductVisual";
 import { QuickView } from "./QuickView";
 import { HeartIcon } from "@/components/ui/Icons";
 import { useStore } from "@/lib/state/StoreProvider";
@@ -34,26 +34,19 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
           aria-label={`${product.name}, ${formatPrice(product.price)}`}
         >
           <div className="relative aspect-4/5">
-            <ProductMockup
-              type={product.mockup.type}
-              color={color.hex}
-              logoInk={color.logoInk}
-              logoAsset={product.mockup.logoAsset}
-              logoPosition={product.mockup.logoPosition}
-              logoSize={product.mockup.logoSize}
-              logoTreatment={product.mockup.logoTreatment}
+            <ProductVisual
+              product={product}
+              color={color}
+              view={0}
               className="absolute inset-0 h-full w-full transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.03] group-hover:opacity-0"
               label={`${product.name} in ${color.name}`}
             />
             {/* Second view — revealed on hover, the way a front/back pair would be. */}
-            <ProductMockup
-              type={product.mockup.type}
-              color={color.hex}
-              logoInk={color.logoInk}
-              logoAsset={product.mockup.logoAsset}
+            <ProductVisual
+              product={product}
+              color={color}
+              view={1}
               logoPosition={hoverPosition}
-              logoSize={product.mockup.logoSize}
-              logoTreatment={product.mockup.logoTreatment}
               className="pointer-events-none absolute inset-0 h-full w-full scale-[1.05] opacity-0 transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-100 group-hover:opacity-100"
             />
           </div>

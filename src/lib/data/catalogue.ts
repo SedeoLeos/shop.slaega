@@ -757,3 +757,11 @@ export const getBySlugs = (slugs: string[]): Product[] =>
     const found = getProduct(slug);
     return found ? [found] : [];
   });
+
+/**
+ * Photography for a product in a given colourway, most important view
+ * first. Empty when the piece has no shoot yet — callers fall back to
+ * the vector mockup.
+ */
+export const resolveImages = (product: Product, color?: ColorOption): string[] =>
+  (color?.images?.length ? color.images : product.images) ?? [];

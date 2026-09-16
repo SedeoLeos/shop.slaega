@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ProductMockup } from "@/components/product/mockup/ProductMockup";
+import { ProductVisual } from "@/components/product/ProductVisual";
 import { MinusIcon, PlusIcon } from "@/components/ui/Icons";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice } from "@/lib/format";
@@ -39,19 +39,15 @@ export function CartPage() {
                   href={`/product/${line.product.slug}/`}
                   className="w-28 shrink-0 bg-[#efece5] lg:w-40"
                 >
-                  <ProductMockup
-                    type={line.product.mockup.type}
-                    color={line.colorHex}
-                    logoInk={
-                      line.product.colors.find((c) => c.id === line.colorId)?.logoInk ?? "#0a0a0a"
-                    }
-                    logoAsset={line.product.mockup.logoAsset}
-                    logoPosition={line.product.mockup.logoPosition}
-                    logoSize={line.product.mockup.logoSize}
-                    logoTreatment={line.product.mockup.logoTreatment}
-                    className="h-full w-full"
-                    label={`${line.product.name} in ${line.colorName}`}
-                  />
+                  <ProductVisual
+                      product={line.product}
+                      color={
+                        line.product.colors.find((c) => c.id === line.colorId) ??
+                        line.product.colors[0]
+                      }
+                      className="h-full w-full"
+                      label={`${line.product.name} in ${line.colorName}`}
+                    />
                 </Link>
 
                 <div className="flex min-w-0 flex-1 flex-col">

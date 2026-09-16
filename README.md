@@ -129,11 +129,30 @@ accent resolves to the material tone. That is the material, not a recolour:
 Adding a product type means adding one entry to `silhouettes.ts` (outline,
 decoration, logo anchors, material) and nothing else.
 
-### Where real photography goes
+### Real photography
 
-`Product.images?: string[]` on the product model is the swap point. Populate
-it and the gallery and cards use the photographs; leave it empty and they
-fall back to the vector mockups. The same applies to `LookbookFrame.image`.
+The mockups are a stand-in, not the destination. When product photography
+exists, it replaces them.
+
+```bash
+# 1. put blank product photos in assets/blanks/  (see the README there)
+#    named <slug>__<colour>.jpg, e.g. essential-tee__bone.jpg
+# 2. composite the official mark onto them
+pnpm logo
+# 3. add the generated paths to the colourway in src/lib/data/catalogue.ts
+```
+
+`scripts/apply-logo.mjs` reads the mark from `public/brand/*.svg`, scales it
+uniformly, and composites it at the placement declared per product — position
+and size as fractions of the image, so they survive a change of resolution.
+Five treatments control how the mark meets the material: `print` blends into
+the weave, `embroidery` and `woven` add a raised bevel, `emboss` goes tonal,
+`engrave` cuts in with a lit lip.
+
+Every surface that shows a product — card, gallery, quick view, cart, search —
+goes through `<ProductVisual />`, which uses the photograph when the colourway
+has one and draws the vector mockup when it does not. A shoot can therefore
+land one product, or one colourway, at a time.
 
 ## Currency
 

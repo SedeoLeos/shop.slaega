@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { ProductMockup } from "./mockup/ProductMockup";
+import { ProductVisual } from "./ProductVisual";
 import { CloseIcon } from "@/components/ui/Icons";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice, cx } from "@/lib/format";
@@ -43,14 +43,9 @@ export function QuickView({ product, onClose }: { product: Product; onClose: () 
         </button>
 
         <div className="bg-[#efece5] max-md:hidden">
-          <ProductMockup
-            type={product.mockup.type}
-            color={color.hex}
-            logoInk={color.logoInk}
-            logoAsset={product.mockup.logoAsset}
-            logoPosition={product.mockup.logoPosition}
-            logoSize={product.mockup.logoSize}
-            logoTreatment={product.mockup.logoTreatment}
+          <ProductVisual
+            product={product}
+            color={color}
             className="h-full w-full"
             label={`${product.name} in ${color.name}`}
           />

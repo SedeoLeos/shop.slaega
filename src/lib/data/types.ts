@@ -56,6 +56,12 @@ export interface ColorOption {
   /** Stable id used in cart lines and URLs. */
   id: string;
   name: string;
+  /**
+   * Photography for this colourway, most important view first.
+   * Produced by `pnpm logo` from assets/blanks/. When present it
+   * replaces the vector mockup everywhere the product is shown.
+   */
+  images?: string[];
   /** Base material colour. */
   hex: string;
   /** Colour the logo is applied in on this colourway. */
@@ -99,9 +105,8 @@ export interface Product {
   mockup: MockupConfig;
   details: ProductDetail[];
   /**
-   * Optional path to real studio photography. When present the gallery
-   * and cards use it instead of the vector mockup — the swap point for
-   * a future shoot. See DESIGN.md › Product visuals.
+   * Photography shared by every colourway. A colour's own `images`
+   * win over this. When neither is set the vector mockup is drawn.
    */
   images?: string[];
 }

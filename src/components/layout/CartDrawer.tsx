@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ProductMockup } from "@/components/product/mockup/ProductMockup";
+import { ProductVisual } from "@/components/product/ProductVisual";
 import { CloseIcon, MinusIcon, PlusIcon } from "@/components/ui/Icons";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice } from "@/lib/format";
@@ -78,17 +78,14 @@ export function CartDrawer() {
                     onClick={closeCart}
                     className="w-20 shrink-0 bg-[#efece5]"
                   >
-                    <ProductMockup
-                      type={line.product.mockup.type}
-                      color={line.colorHex}
-                      logoInk={
-                        line.product.colors.find((c) => c.id === line.colorId)?.logoInk ?? "#0a0a0a"
+                    <ProductVisual
+                      product={line.product}
+                      color={
+                        line.product.colors.find((c) => c.id === line.colorId) ??
+                        line.product.colors[0]
                       }
-                      logoAsset={line.product.mockup.logoAsset}
-                      logoPosition={line.product.mockup.logoPosition}
-                      logoSize={line.product.mockup.logoSize}
-                      logoTreatment={line.product.mockup.logoTreatment}
                       className="h-full w-full"
+                      label={`${line.product.name} in ${line.colorName}`}
                     />
                   </Link>
 
