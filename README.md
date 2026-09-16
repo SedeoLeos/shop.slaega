@@ -10,16 +10,19 @@ say so where they appear.
 
 ## Running it
 
+This project uses **pnpm** (pinned via `packageManager` in `package.json`).
+If you don't have it: `corepack enable`.
+
 ```bash
-npm install
-npm run dev          # http://localhost:3000
-npm run build        # static export to ./out
-npm run typecheck
-npm run lint
+pnpm install
+pnpm dev             # http://localhost:3000
+pnpm build           # static export to ./out
+pnpm typecheck
+pnpm lint
 ```
 
-`next.config.ts` sets `output: "export"`, so `npm run build` produces a
-fully static `out/` directory that can be served from any host or CDN.
+`next.config.ts` sets `output: "export"`, so `pnpm build` produces a fully
+static `out/` directory that can be served from any host or CDN.
 
 ## The logo
 
