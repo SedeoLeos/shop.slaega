@@ -129,7 +129,30 @@ accent resolves to the material tone. That is the material, not a recolour:
 Adding a product type means adding one entry to `silhouettes.ts` (outline,
 decoration, logo anchors, material) and nothing else.
 
-### Real photography
+### Product photographs (Unsplash)
+
+Every product carries a real `imageUrl`, resolved once at build time:
+
+```bash
+UNSPLASH_ACCESS_KEY=your_key pnpm images
+```
+
+The search is driven by the product's own data — `src/lib/images/queries.ts`
+maps the mockup type to what the object physically is, frames it with the
+category, and adds the product name as a material cue. Queries are ordered
+most specific first and fall through, so a narrow search can miss without
+losing the product.
+
+`src/lib/images/unsplash.ts` is the only module that talks to the API. It
+implements Unsplash's terms: Client-ID auth, photographer attribution stored
+alongside the URL, and the download endpoint triggered on selection. The
+storefront never calls Unsplash at runtime — results land in
+`src/lib/data/product-images.json` and are joined onto products by id at
+module load, so the catalogue itself is never rewritten.
+
+No two products receive the same photograph, and `--force` re-resolves.
+
+### Locally shot photography
 
 The mockups are a stand-in, not the destination. When product photography
 exists, it replaces them.

@@ -100,6 +100,13 @@ export interface Edition {
   note: string;
 }
 
+/** Attribution for a photograph, as the source's terms require. */
+export interface PhotoCredit {
+  name: string;
+  profile: string;
+  photo: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -122,8 +129,23 @@ export interface Product {
   mockup: MockupConfig;
   details: ProductDetail[];
   /**
-   * Photography shared by every colourway. A colour's own `images`
-   * win over this. When neither is set the vector mockup is drawn.
+   * The product's real photograph. Resolved from Unsplash by
+   * `pnpm images` and merged in from product-images.json — never
+   * edited by hand, and never a drawing.
+   */
+  imageUrl?: string;
+  /** Second view, used for the card hover transition. */
+  imageAltUrl?: string;
+  /** The source's own description of the photo, used as alt text. */
+  imageAlt?: string;
+  /** How the photo sits in the product frame. */
+  imageFit?: "cover" | "contain";
+  imageCredit?: PhotoCredit;
+
+  /**
+   * Locally produced photography, if any — see scripts/apply-logo.mjs.
+   * Takes precedence over `imageUrl`, because a shoot of the real
+   * product beats a stock photograph of the category.
    */
   images?: string[];
 }

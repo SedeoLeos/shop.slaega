@@ -1,3 +1,5 @@
+import { imageFitFor } from "@/lib/images/queries";
+import manifest from "./product-images.json";
 import type {
   Category,
   Collection,
@@ -142,7 +144,38 @@ const RETURNS = {
   value: "30 days, unworn, tags attached. Return shipping is on us.",
 };
 
-export const PRODUCTS: Product[] = [
+/* ------------------------------------------------------------
+   Photography, merged in from the resolved manifest.
+
+   The catalogue below is the single source of truth for product
+   data — names, prices, categories, copy. Photographs are joined
+   on product id at module load, so running `pnpm images` never
+   rewrites any of it.
+   ------------------------------------------------------------ */
+
+interface ManifestEntry {
+  imageUrl: string;
+  altUrl?: string;
+  alt: string;
+  credit: { name: string; profile: string; photo: string };
+}
+
+const PHOTOS = manifest.products as Record<string, ManifestEntry | undefined>;
+
+function withPhoto(product: Product): Product {
+  const photo = PHOTOS[product.id];
+  if (!photo) return { ...product, imageFit: imageFitFor(product.mockup.type) };
+  return {
+    ...product,
+    imageUrl: photo.imageUrl,
+    imageAltUrl: photo.altUrl,
+    imageAlt: photo.alt,
+    imageFit: imageFitFor(product.mockup.type),
+    imageCredit: photo.credit,
+  };
+}
+
+const CATALOGUE: Product[] = [
   {
     id: "p-signature-hoodie",
     slug: "signature-hoodie",
@@ -829,6 +862,9 @@ export const PRODUCTS: Product[] = [
     ],
   },
 ];
+
+/** The catalogue as the UI sees it: product data plus its photo. */
+export const PRODUCTS: Product[] = CATALOGUE.map(withPhoto);
 
 /* ------------------------------------------------------------
    Selectors — the only way UI reaches the catalogue.

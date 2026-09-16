@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "logo": "node scripts/apply-logo.mjs",
+    "images": "tsx scripts/fetch-product-images.ts",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
@@ -27,6 +28,7 @@
     "postcss": "^8.5.28",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.13",
     "typescript": "^6.0.3"
   },
   "pnpm": {
