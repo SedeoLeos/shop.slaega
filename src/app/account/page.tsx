@@ -15,7 +15,7 @@ export default function AccountPage() {
 
       <div className="grid grid-cols-1 gap-12 pt-12 lg:grid-cols-2 lg:gap-24 lg:pt-20">
         <div>
-          <p className="type-body max-w-md text-graphite/85">
+          <p className="type-body max-w-md text-muted-foreground">
             Accounts arrive with the connected store. When they do, this is where
             orders, saved addresses, returns and early access to a drop will live.
           </p>
@@ -28,22 +28,22 @@ export default function AccountPage() {
             ].map(([label, line]) => (
               <li key={label} className="rule-hairline py-6">
                 <p className="type-title">{label}</p>
-                <p className="type-body mt-2 text-stone">{line}</p>
+                <p className="type-body mt-2 text-muted-foreground">{line}</p>
               </li>
             ))}
           </ul>
         </div>
 
         <div className="lg:pt-2">
-          <p className="type-meta text-stone">In the meantime</p>
+          <p className="type-meta text-muted-foreground">In the meantime</p>
           <div className="mt-6 flex flex-col items-start gap-4">
             <Link
               href="/wishlist/"
-              className="type-meta inline-flex h-14 items-center bg-ink px-8 text-bone transition-colors hover:bg-graphite"
+              className="type-meta inline-flex h-14 items-center bg-foreground px-8 text-background transition-colors hover:bg-primary hover:text-primary-foreground"
             >
               Your wishlist
             </Link>
-            <Link href="/shop/" className="type-meta link-underline py-2 text-graphite">
+            <Link href="/shop/" className="type-meta link-underline py-2 text-foreground">
               Shop the range
             </Link>
           </div>

@@ -11,7 +11,7 @@ export function Newsletter() {
   const [state, setState] = useState<"idle" | "done">("idle");
 
   return (
-    <section className="on-dark bg-ink py-20 text-bone lg:py-32">
+    <section className="on-dark bg-background py-20 text-foreground lg:py-32">
       <div className="shell">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1fr] lg:gap-24">
           <Reveal>
@@ -19,12 +19,12 @@ export function Newsletter() {
           </Reveal>
 
           <Reveal delay={110} className="lg:pt-4">
-            <p className="type-body max-w-md text-bone/60">
+            <p className="type-body max-w-md text-muted-foreground">
               Discover new drops, collections and exclusive SLAEGA releases.
             </p>
 
             {state === "done" ? (
-              <p className="type-title mt-10 text-accent" role="status">
+              <p className="type-title mt-10 text-primary" role="status">
                 You’re on the list.
               </p>
             ) : (
@@ -36,7 +36,7 @@ export function Newsletter() {
                 }}
               >
                 <div className="flex-1">
-                  <label htmlFor="newsletter-email" className="type-meta text-bone/45">
+                  <label htmlFor="newsletter-email" className="type-meta text-subtle-foreground">
                     Email
                   </label>
                   <input
@@ -46,12 +46,12 @@ export function Newsletter() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="type-body mt-3 w-full border-b border-bone/25 bg-transparent pb-3 placeholder:text-bone/35 focus:border-bone focus:outline-none"
+                    className="type-body mt-3 w-full border-b border-border-strong bg-transparent pb-3 placeholder:text-subtle-foreground focus:border-foreground focus:outline-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="type-meta group inline-flex h-14 shrink-0 items-center justify-center gap-3 bg-bone px-8 text-ink transition-colors duration-200 hover:bg-white"
+                  className="type-meta group inline-flex h-14 shrink-0 items-center justify-center gap-3 bg-foreground px-8 text-background transition-colors duration-[var(--duration-fast)] hover:bg-primary hover:text-primary-foreground"
                 >
                   Subscribe
                   <ArrowIcon className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5" />
@@ -59,7 +59,7 @@ export function Newsletter() {
               </form>
             )}
 
-            <p className="type-meta mt-6 text-bone/35">
+            <p className="type-meta mt-6 text-subtle-foreground">
               No noise. Unsubscribe whenever.
             </p>
           </Reveal>

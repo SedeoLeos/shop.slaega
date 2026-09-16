@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ProductMockup } from "@/components/product/mockup/ProductMockup";
 import { SlaegaLogo } from "@/components/brand/SlaegaLogo";
 import { Reveal } from "@/components/ui/Reveal";
+import { MATERIALS } from "@/lib/data/catalogue";
 import { cx } from "@/lib/format";
 import type {
   LogoAsset,
@@ -133,13 +134,11 @@ const PIECES: PieceSpec[] = [
   },
 ];
 
-const COLORWAYS = [
-  { id: "black", name: "Black", hex: "#111110", ink: "#f5f3ee" },
-  { id: "bone", name: "Bone", hex: "#eae5db", ink: "#0a0a0a" },
-  { id: "stone", name: "Stone", hex: "#bcb4a6", ink: "#0a0a0a" },
-  { id: "clay", name: "Clay", hex: "#6b5f54", ink: "#f5f3ee" },
-  { id: "slate", name: "Slate", hex: "#3a3d42", ink: "#f5f3ee" },
-];
+/* The studio offers the catalogue's own colourways — a swatch here that
+   does not exist as a product would be a promise the store cannot keep. */
+const COLORWAYS = (["black", "bone", "stone", "clay", "slate"] as const).map(
+  (id) => MATERIALS[id],
+);
 
 const SIZES: LogoSize[] = ["xs", "small", "medium", "large"];
 
@@ -170,7 +169,7 @@ function Control({
 }) {
   return (
     <div>
-      <p className="type-meta text-bone/45">{label}</p>
+      <p className="type-meta text-subtle-foreground">{label}</p>
       <div className="mt-3 flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -195,7 +194,7 @@ function Chip({
       title={title}
       className={cx(
         "type-meta min-h-11 px-4 py-3 transition-colors duration-200",
-        active ? "bg-bone text-ink" : "bg-bone/8 text-bone/75 hover:bg-bone/16 hover:text-bone",
+        active ? "bg-primary text-primary-foreground" : "bg-foreground/8 text-muted-foreground hover:bg-foreground/16 hover:text-foreground",
       )}
     >
       {children}
@@ -226,15 +225,15 @@ export function MockupStudio() {
   }
 
   return (
-    <section className="on-dark bg-graphite py-20 text-bone lg:py-32">
+    <section className="on-dark bg-surface py-20 text-foreground lg:py-32">
       <div className="shell">
-        <Reveal as="p" className="type-meta text-accent">
+        <Reveal as="p" className="type-meta text-primary">
           Mockup system
         </Reveal>
         <Reveal as="h2" className="type-section mt-4 max-w-[20ch]" delay={70}>
           One mark. Every product.
         </Reveal>
-        <Reveal as="p" className="type-body mt-5 max-w-xl text-bone/60" delay={130}>
+        <Reveal as="p" className="type-body mt-5 max-w-xl text-muted-foreground" delay={130}>
           The official SLAEGA logo, applied across the range — clothing,
           headwear, bags and everyday objects. Change the piece, the colourway,
           the placement and the application; the mark itself never changes.
@@ -242,12 +241,12 @@ export function MockupStudio() {
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12">
           {/* Stage */}
-          <Reveal variant="image" className="relative bg-ink">
+          <Reveal variant="image" className="relative bg-foreground">
             <div className="aspect-square w-full md:aspect-4/3 lg:aspect-4/5">
               <ProductMockup
                 type={piece.id}
                 color={color.hex}
-                logoInk={color.ink}
+                logoInk={color.logoInk}
                 logoAsset={asset}
                 logoPosition={position}
                 logoSize={size}
@@ -257,7 +256,7 @@ export function MockupStudio() {
                 label={`${piece.label} in ${color.name}, SLAEGA ${asset} applied ${TREATMENT_LABEL[treatment].toLowerCase()} at ${POSITION_LABEL[position].toLowerCase()}`}
               />
             </div>
-            <div className="type-meta absolute inset-x-0 bottom-0 flex flex-wrap gap-x-6 gap-y-1 bg-ink/70 px-5 py-4 text-bone/55 backdrop-blur-sm">
+            <div className="type-meta absolute inset-x-0 bottom-0 flex flex-wrap gap-x-6 gap-y-1 bg-background/80 px-5 py-4 text-muted-foreground backdrop-blur-sm">
               <span>{piece.label}</span>
               <span>{color.name}</span>
               <span>{POSITION_LABEL[position]}</span>
@@ -285,8 +284,8 @@ export function MockupStudio() {
                   aria-label={c.name}
                   aria-pressed={c.id === colorId}
                   className={cx(
-                    "h-11 w-11 ring-offset-2 ring-offset-graphite transition-[box-shadow] duration-200",
-                    c.id === colorId ? "ring-1 ring-bone" : "ring-1 ring-bone/20 hover:ring-bone/50",
+                    "h-11 w-11 ring-offset-2 ring-offset-background transition-[box-shadow] duration-200",
+                    c.id === colorId ? "ring-1 ring-foreground" : "ring-1 ring-border hover:ring-border-strong",
                   )}
                   style={{ backgroundColor: c.hex }}
                 />
@@ -327,18 +326,18 @@ export function MockupStudio() {
             </Control>
 
             {/* The one stubbed input — named as such. */}
-            <div className="border-t border-bone/15 pt-8">
-              <p className="type-meta text-bone/45">Source asset</p>
-              <div className="mt-3 flex items-center gap-4 bg-bone/6 p-4">
-                <div className="grid h-14 w-14 shrink-0 place-items-center bg-ink">
+            <div className="border-t border-border pt-8">
+              <p className="type-meta text-subtle-foreground">Source asset</p>
+              <div className="mt-3 flex items-center gap-4 bg-foreground/8 p-4">
+                <div className="grid h-14 w-14 shrink-0 place-items-center bg-foreground">
                   <SlaegaLogo className="h-5 w-auto" title={null} />
                 </div>
                 <div className="min-w-0">
-                  <p className="type-body truncate text-bone/85">slaega-logo.svg</p>
-                  <p className="type-meta mt-1 text-bone/40">Official asset — vector, locked</p>
+                  <p className="type-body truncate text-foreground">slaega-logo.svg</p>
+                  <p className="type-meta mt-1 text-subtle-foreground">Official asset — vector, locked</p>
                 </div>
               </div>
-              <p className="type-body mt-4 text-bone/45">
+              <p className="type-body mt-4 text-subtle-foreground">
                 Upload arrives with the connected version. Until then the studio
                 renders from the official files only, so no approximation of the
                 mark can reach a product.

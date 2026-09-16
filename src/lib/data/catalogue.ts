@@ -72,6 +72,25 @@ const OLIVE: ColorOption = {
   dark: true,
 };
 
+/**
+ * The material palette, by colourway id. These are the physical colours
+ * of the products — the black of the cotton, the bone of the canvas —
+ * not interface colours, and they belong to the catalogue rather than
+ * the theme. Art direction references these instead of retyping them.
+ */
+export const MATERIALS = {
+  black: BLACK,
+  bone: BONE,
+  stone: STONE,
+  clay: CLAY,
+  slate: SLATE,
+  steel: STEEL,
+  sand: SAND,
+  olive: OLIVE,
+} as const;
+
+export type MaterialId = keyof typeof MATERIALS;
+
 export const CATEGORIES: Category[] = [
   {
     id: "clothing",

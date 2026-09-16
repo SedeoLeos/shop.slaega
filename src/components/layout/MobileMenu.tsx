@@ -12,7 +12,7 @@ export function MobileMenu() {
 
   return (
     <div
-      className="on-dark fixed inset-0 z-80 flex flex-col bg-ink text-bone motion-safe:animate-[fadeIn_.25s_ease] lg:hidden"
+      className="on-dark fixed inset-0 z-80 flex flex-col bg-foreground text-foreground motion-safe:animate-[fadeIn_.25s_ease] lg:hidden"
       role="dialog"
       aria-modal="true"
       aria-label="Menu"

@@ -27,7 +27,7 @@ export function SectionHead({
     >
       <div>
         {eyebrow && (
-          <Reveal as="p" className={cx("type-meta", tone === "dark" ? "text-bone/50" : "text-stone")}>
+          <Reveal as="p" className={cx("type-meta", tone === "dark" ? "text-muted-foreground" : "text-muted-foreground")}>
             {eyebrow}
           </Reveal>
         )}

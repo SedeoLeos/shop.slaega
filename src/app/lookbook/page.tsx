@@ -16,17 +16,17 @@ export default function LookbookPage() {
   return (
     <>
       {/* Full-bleed opener — the header sits inside this image. */}
-      <section className="on-dark relative flex min-h-[70svh] items-end overflow-hidden bg-ink text-bone lg:min-h-[85svh]">
+      <section className="on-dark relative flex min-h-[70svh] items-end overflow-hidden bg-foreground text-foreground lg:min-h-[85svh]">
         <Scene name="concrete" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-scrim via-scrim/70 to-scrim/20" />
         <div className="shell relative pb-14 pt-32 lg:pb-20">
-          <Reveal as="p" className="type-meta text-accent">
+          <Reveal as="p" className="type-meta text-primary">
             Autumn / Winter 26
           </Reveal>
           <Reveal as="h1" className="type-hero mt-5 max-w-[12ch]" delay={90}>
             Lookbook
           </Reveal>
-          <Reveal as="p" className="type-body mt-7 max-w-md text-bone/65" delay={170}>
+          <Reveal as="p" className="type-body mt-7 max-w-md text-muted-foreground" delay={170}>
             Shot across a single day — transit, work, the walk back. The pieces
             as they are actually worn.
           </Reveal>
@@ -57,7 +57,7 @@ export default function LookbookPage() {
           <p className="type-section max-w-[16ch]">Define your everyday.</p>
           <Link
             href="/shop/"
-            className="type-meta group inline-flex h-14 items-center gap-3 bg-ink px-8 text-bone transition-colors duration-200 hover:bg-graphite"
+            className="type-meta group inline-flex h-14 items-center gap-3 bg-foreground px-8 text-background transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
           >
             Shop the collection
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5" />

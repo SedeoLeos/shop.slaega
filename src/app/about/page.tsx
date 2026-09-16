@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Scene } from "@/components/sections/Scene";
 import { ProductMockup } from "@/components/product/mockup/ProductMockup";
+import { MATERIALS } from "@/lib/data/catalogue";
 import { Reveal } from "@/components/ui/Reveal";
 import { SlaegaSymbol } from "@/components/brand/SlaegaLogo";
 
@@ -58,13 +59,13 @@ export default function AboutPage() {
   return (
     <>
       <section className="shell pb-16 pt-28 lg:pb-24 lg:pt-44">
-        <Reveal as="p" className="type-meta text-stone">
+        <Reveal as="p" className="type-meta text-muted-foreground">
           About SLAEGA
         </Reveal>
         <Reveal as="h1" className="type-hero mt-6 max-w-[14ch]" delay={80}>
           Built for everyday.
         </Reveal>
-        <Reveal as="p" className="type-body mt-10 max-w-2xl text-lg text-graphite/85 lg:text-xl" delay={160}>
+        <Reveal as="p" className="type-body mt-10 max-w-2xl text-lg text-muted-foreground lg:text-xl" delay={160}>
           SLAEGA is a contemporary lifestyle brand focused on creating pieces
           designed to move with you — from everyday essentials to statement
           pieces.
@@ -75,8 +76,8 @@ export default function AboutPage() {
         <Scene name="dusk" />
         <ProductMockup
           type="oversized-tee"
-          color="#eae5db"
-          logoInk="#0a0a0a"
+          color={MATERIALS.bone.hex}
+          logoInk={MATERIALS.bone.logoInk}
           logoAsset="lockup"
           logoPosition="center-chest"
           logoSize="medium"
@@ -92,14 +93,14 @@ export default function AboutPage() {
           {PRINCIPLES.map((principle, i) => (
             <Reveal key={principle.title} delay={i * 110}>
               <h2 className="type-section">{principle.title}</h2>
-              <p className="type-body mt-5 text-graphite/80">{principle.body}</p>
+              <p className="type-body mt-5 text-muted-foreground">{principle.body}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
       {/* Brand mark, given room. */}
-      <section className="on-dark bg-ink py-20 text-bone lg:py-32">
+      <section className="on-dark bg-background py-20 text-foreground lg:py-32">
         <div className="shell flex flex-col items-center text-center">
           <Reveal className="p-6">
             <SlaegaSymbol className="h-20 w-20" title="SLAEGA" />
@@ -121,9 +122,9 @@ export default function AboutPage() {
             ["003", "Everyday movement", "The brief behind the range, in plain terms."],
           ].map(([index, title, line], i) => (
             <Reveal key={index} delay={i * 100} className="rule-hairline pt-6">
-              <p className="type-meta text-stone">{index}</p>
+              <p className="type-meta text-muted-foreground">{index}</p>
               <h3 className="type-title mt-3">{title}</h3>
-              <p className="type-body mt-3 text-graphite/75">{line}</p>
+              <p className="type-body mt-3 text-muted-foreground">{line}</p>
             </Reveal>
           ))}
         </div>
@@ -135,14 +136,14 @@ export default function AboutPage() {
           {HELP.map((item) => (
             <div key={item.id} id={item.id} className="rule-hairline scroll-mt-28 py-7">
               <h3 className="type-title">{item.title}</h3>
-              <p className="type-body mt-3 max-w-prose text-graphite/80">{item.body}</p>
+              <p className="type-body mt-3 max-w-prose text-muted-foreground">{item.body}</p>
             </div>
           ))}
         </div>
 
         <Link
           href="/shop/"
-          className="type-meta mt-12 inline-flex h-14 items-center bg-ink px-8 text-bone transition-colors hover:bg-graphite"
+          className="type-meta mt-12 inline-flex h-14 items-center bg-foreground px-8 text-background transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           Shop SLAEGA
         </Link>

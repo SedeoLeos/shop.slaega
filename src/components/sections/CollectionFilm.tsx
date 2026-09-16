@@ -4,6 +4,7 @@ import { ProductMockup } from "@/components/product/mockup/ProductMockup";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/Icons";
 import type { SceneName } from "./Scene";
+import { MATERIALS } from "@/lib/data/catalogue";
 import type { LogoPosition, LogoTreatment, MockupType } from "@/lib/data/types";
 
 /* The collection, shown the way a campaign would run it: one
@@ -13,8 +14,7 @@ import type { LogoPosition, LogoTreatment, MockupType } from "@/lib/data/types";
 interface Frame {
   scene: SceneName;
   piece: MockupType;
-  color: string;
-  ink: string;
+  material: keyof typeof MATERIALS;
   position: LogoPosition;
   treatment: LogoTreatment;
   size: "small" | "medium" | "large";
@@ -24,8 +24,7 @@ interface Frame {
 const LEAD: Frame = {
   scene: "concrete",
   piece: "hoodie",
-  color: "#111110",
-  ink: "#f5f3ee",
+  material: "black",
   position: "center-chest",
   treatment: "print",
   size: "large",
@@ -36,8 +35,7 @@ const SUPPORT: Frame[] = [
   {
     scene: "dusk",
     piece: "cap",
-    color: "#6b5f54",
-    ink: "#f5f3ee",
+    material: "clay",
     position: "front-panel",
     treatment: "embroidery",
     size: "medium",
@@ -46,8 +44,7 @@ const SUPPORT: Frame[] = [
   {
     scene: "studio",
     piece: "tshirt",
-    color: "#eae5db",
-    ink: "#0a0a0a",
+    material: "bone",
     position: "left-chest",
     treatment: "print",
     size: "small",
@@ -56,8 +53,7 @@ const SUPPORT: Frame[] = [
   {
     scene: "night",
     piece: "jacket",
-    color: "#3a3d42",
-    ink: "#f5f3ee",
+    material: "slate",
     position: "left-chest",
     treatment: "embroidery",
     size: "small",
@@ -66,14 +62,15 @@ const SUPPORT: Frame[] = [
 ];
 
 function Frame({ frame, className }: { frame: Frame; className?: string }) {
+  const material = MATERIALS[frame.material];
   return (
     <figure className={className}>
       <div className="relative h-full w-full overflow-hidden">
         <Scene name={frame.scene} />
         <ProductMockup
           type={frame.piece}
-          color={frame.color}
-          logoInk={frame.ink}
+          color={material.hex}
+          logoInk={material.logoInk}
           logoAsset={frame.size === "large" ? "lockup" : "symbol"}
           logoPosition={frame.position}
           logoSize={frame.size}
@@ -82,7 +79,7 @@ function Frame({ frame, className }: { frame: Frame; className?: string }) {
           className="absolute inset-0 h-full w-full scale-90 transition-transform duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] hover:scale-95"
           label={frame.caption}
         />
-        <figcaption className="type-meta absolute bottom-4 left-4 text-bone/70 mix-blend-difference">
+        <figcaption className="type-meta absolute bottom-4 left-4 text-muted-foreground mix-blend-difference">
           {frame.caption}
         </figcaption>
       </div>
@@ -92,9 +89,9 @@ function Frame({ frame, className }: { frame: Frame; className?: string }) {
 
 export function CollectionFilm() {
   return (
-    <section className="on-dark bg-ink py-20 text-bone lg:py-32">
+    <section className="on-dark bg-background py-20 text-foreground lg:py-32">
       <div className="shell">
-        <Reveal as="p" className="type-meta text-accent">
+        <Reveal as="p" className="type-meta text-primary">
           Autumn / Winter 26
         </Reveal>
         <Reveal as="h2" className="type-display mt-5 max-w-[16ch]" delay={80}>
@@ -120,14 +117,14 @@ export function CollectionFilm() {
           </div>
         </div>
 
-        <Reveal className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-bone/15 pt-8">
-          <p className="type-body max-w-md text-bone/60">
+        <Reveal className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-border pt-8">
+          <p className="type-body max-w-md text-muted-foreground">
             One mark, applied with intent — printed, embroidered, embossed or
             engraved, always at its own proportions.
           </p>
           <Link
             href="/collections/"
-            className="type-meta group inline-flex h-14 items-center gap-3 bg-bone px-8 text-ink transition-colors duration-200 hover:bg-white"
+            className="type-meta group inline-flex h-14 items-center gap-3 bg-foreground px-8 text-background transition-colors duration-[var(--duration-fast)] hover:bg-primary hover:text-primary-foreground"
           >
             Discover the collection
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5" />

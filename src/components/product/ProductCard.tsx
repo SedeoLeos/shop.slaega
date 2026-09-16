@@ -5,6 +5,8 @@ import { useState } from "react";
 import { ProductVisual } from "./ProductVisual";
 import { QuickView } from "./QuickView";
 import { HeartIcon } from "@/components/ui/Icons";
+import { Badge } from "@/components/ui/Badge";
+import { Price } from "@/components/ui/Price";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice, cx } from "@/lib/format";
 import type { Product } from "@/lib/data/types";
@@ -27,7 +29,7 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
 
   return (
     <article className="group relative">
-      <div className="relative overflow-hidden bg-[#efece5]">
+      <div className="relative overflow-hidden bg-surface">
         <Link
           href={`/product/${product.slug}/`}
           className="block"
@@ -53,15 +55,14 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
         </Link>
 
         {product.edition ? (
-          <span className="type-meta absolute left-0 top-0 flex items-center gap-2 bg-accent px-3 py-1.5 text-ink">
+          <Badge tone="spark" meta={`${product.edition.runSize} pcs`} className="absolute left-0 top-0">
             {product.edition.label}
-            <span className="opacity-60">{product.edition.runSize} pcs</span>
-          </span>
+          </Badge>
         ) : (
           product.isNew && (
-            <span className="type-meta absolute left-0 top-0 bg-accent px-3 py-1.5 text-ink">
+            <Badge tone="spark" className="absolute left-0 top-0">
               New
-            </span>
+            </Badge>
           )
         )}
 
@@ -72,7 +73,10 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
           aria-label={
             wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`
           }
-          className="absolute right-3 top-3 grid h-11 w-11 place-items-center text-ink/60 transition-[color,transform] duration-200 hover:scale-110 hover:text-ink active:scale-95"
+          className={cx(
+            "press absolute right-3 top-3 grid h-11 w-11 place-items-center transition-colors duration-[var(--duration-fast)]",
+            wishlisted ? "text-primary" : "text-muted-foreground hover:text-foreground",
+          )}
         >
           <HeartIcon className="h-5 w-5" filled={wishlisted} />
         </button>
@@ -81,7 +85,7 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
         <button
           type="button"
           onClick={() => setQuickView(true)}
-          className="type-meta absolute inset-x-0 bottom-0 translate-y-full bg-ink py-3.5 text-bone transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0 focus-visible:translate-y-0 max-md:hidden"
+          className="type-meta absolute inset-x-0 bottom-0 translate-y-full bg-primary py-3.5 text-primary-foreground transition-transform duration-[var(--duration-base)] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0 focus-visible:translate-y-0 max-md:hidden"
         >
           Quick view
         </button>
@@ -89,31 +93,28 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
 
       <div
         className={cx(
-          "flex items-baseline justify-between gap-5",
+          "flex flex-col",
           size === "feature" ? "pt-6" : "pt-4",
         )}
       >
-        <div className="min-w-0">
-          <h3
-            className={cx(
-              "text-balance",
-              size === "feature" ? "type-section max-w-[14ch]" : "type-title truncate",
-            )}
-          >
-            <Link href={`/product/${product.slug}/`} className="link-underline">
-              {product.name}
-            </Link>
-          </h3>
-          <p className="type-meta mt-2 text-stone">{product.tagline}</p>
-        </div>
-        <p
+        {/* Name and price stack rather than share a baseline: a CFA franc
+            price runs three times the length of a euro one and cannot sit
+            beside a product name in a grid column. */}
+        <h3
           className={cx(
-            "shrink-0 tabular-nums",
-            size === "feature" ? "type-section" : "type-title",
+            "text-balance",
+            size === "feature" ? "type-section max-w-[16ch]" : "type-title",
           )}
         >
-          {formatPrice(product.price)}
-        </p>
+          <Link href={`/product/${product.slug}/`} className="link-underline">
+            {product.name}
+          </Link>
+        </h3>
+        <Price
+          amount={product.price}
+          className={cx("mt-1.5", size === "feature" && "type-section")}
+        />
+        <p className="type-meta mt-2.5 text-muted-foreground">{product.tagline}</p>
       </div>
 
       {product.colors.length > 1 && (
@@ -126,13 +127,13 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
               aria-label={`View in ${c.name}`}
               aria-pressed={i === colorIndex}
               className={cx(
-                "h-3.5 w-3.5 rounded-full ring-offset-2 ring-offset-bone transition-[box-shadow] duration-200",
-                i === colorIndex ? "ring-1 ring-ink" : "ring-1 ring-ink/15 hover:ring-ink/40",
+                "h-3.5 w-3.5 rounded-full ring-offset-2 ring-offset-background transition-[box-shadow] duration-200",
+                i === colorIndex ? "ring-1 ring-foreground" : "ring-1 ring-border hover:ring-border-strong",
               )}
               style={{ backgroundColor: c.hex }}
             />
           ))}
-          <span className="type-meta ml-1 text-stone">{product.colors.length} colours</span>
+          <span className="type-meta ml-1 text-muted-foreground">{product.colors.length} colours</span>
         </div>
       )}
 

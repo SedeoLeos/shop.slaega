@@ -112,7 +112,7 @@ export function ProductGallery({
 
   return (
     <div className="flex flex-col gap-3 lg:flex-row-reverse lg:gap-4">
-      <div className="relative flex-1 overflow-hidden bg-[#efece5]">
+      <div className="relative flex-1 overflow-hidden bg-surface">
         <div className="aspect-4/5 w-full">
           <div
             className="h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]"
@@ -128,7 +128,7 @@ export function ProductGallery({
             />
           </div>
         </div>
-        <span className="type-meta absolute bottom-4 left-4 text-stone">{view.label}</span>
+        <span className="type-meta absolute bottom-4 left-4 text-muted-foreground">{view.label}</span>
       </div>
 
       {/* Thumbnails — bottom rail on mobile, left column on desktop. */}
@@ -142,7 +142,7 @@ export function ProductGallery({
               aria-label={`Show ${v.label}`}
               aria-pressed={i === active}
               className={cx(
-                "relative w-20 shrink-0 overflow-hidden bg-[#efece5] transition-opacity duration-200 lg:w-full",
+                "relative w-20 shrink-0 overflow-hidden bg-surface transition-opacity duration-200 lg:w-full",
                 i === active ? "opacity-100" : "opacity-55 hover:opacity-85",
               )}
             >
@@ -161,7 +161,7 @@ export function ProductGallery({
               </div>
               <span
                 className={cx(
-                  "absolute inset-x-0 bottom-0 h-0.5 bg-ink transition-transform duration-300",
+                  "absolute inset-x-0 bottom-0 h-0.5 bg-foreground transition-transform duration-300",
                   i === active ? "scale-x-100" : "scale-x-0",
                 )}
               />

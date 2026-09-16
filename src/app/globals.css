@@ -6,14 +6,39 @@
    ============================================================ */
 
 @theme {
-  /* --- Color palette --------------------------------------- */
-  --color-ink: #0a0a0a;        /* SLAEGA Black   */
-  --color-graphite: #1c1c1c;   /* Graphite       */
-  --color-bone: #f5f3ee;       /* SLAEGA Off White */
-  --color-paper: #ffffff;      /* Pure White     */
-  --color-stone: #8c8982;      /* Stone / metadata */
-  --color-sand: #d8d0c3;       /* Soft Sand      */
-  --color-accent: #ff5a00;     /* SLAEGA Orange — taken from the official logo */
+  /* ============================================================
+     COLOUR — semantic roles, never raw hues.
+     Every value below was contrast-checked against the surface it
+     sits on before it entered the system. See DESIGN.md.
+     ============================================================ */
+
+  --color-background:         #faf7f2;  /* warm ivory  — the 60% */
+  --color-surface:            #fffdfa;  /* soft cream  — product frames, sheets */
+  --color-elevated:           #ffffff;  /* modals and the cart drawer */
+
+  --color-foreground:         #1a1714;  /* deep charcoal, warm-biased  16.70 */
+  --color-muted-foreground:   #6b6259;  /* metadata, descriptions       5.59 */
+  --color-subtle-foreground:  #8c8279;  /* large decorative text only   3.52 */
+
+  --color-border:             #e6ded2;  /* decorative hairline */
+  --color-border-strong:      #8c7d68;  /* control boundaries           3.74 */
+
+  --color-primary:            #a8421c;  /* terracotta                   5.68 */
+  --color-primary-hover:      #8f3a1c;  /* one step deeper on light */
+  --color-primary-foreground: #fffdfa;  /* on the primary fill          5.98 */
+
+  --color-success:            #2f6b45;  /*                              5.94 */
+  --color-warning:            #8a5a12;  /*                              5.53 */
+  --color-error:              #a3342b;  /*                              6.37 */
+
+  /* The logo's own orange. Badge fills only, and always with
+     --color-spark-foreground on it — it fails as text at 2.93. */
+  --color-spark:              #ff5a00;
+  --color-spark-foreground:   #1a1714;  /*                              5.71 */
+
+  /* Scrim behind drawers and modals. Always dark — a scrim that
+     flips with the theme stops separating the panel from the page. */
+  --color-scrim:              #100e0c;
 
   /* --- Type ------------------------------------------------ */
   --font-display: var(--font-slaega-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -24,15 +49,21 @@
 
   /* --- Motion ---------------------------------------------- */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;    /* state change    */
+  --duration-base: 250ms;    /* panel, hover    */
+  --duration-slow: 400ms;    /* image crossfade */
+  --duration-reveal: 900ms;  /* scroll reveal   */
 
   /* --- Layout ---------------------------------------------- */
   --container-editorial: 1600px;
 }
 
 :root {
-  /* Consumed by the official logo SVG. Never hard-code these into the mark. */
-  --foreground: #0a0a0a;
-  --accent: #ff5a00;
+  /* The official logo reads these two. They point at tokens rather
+     than literals, so the mark follows the surface it sits on and is
+     never recoloured by hand. */
+  --foreground: var(--color-foreground);
+  --accent: var(--color-spark);
 
   --header-h: 64px;
 }
@@ -41,10 +72,43 @@
   :root { --header-h: 80px; }
 }
 
-/* On dark surfaces the logo's own variables flip; the mark itself is untouched. */
-.on-dark {
-  --foreground: #f5f3ee;
-  --accent: #ff5a00;
+/* ============================================================
+   DARK
+   ------------------------------------------------------------
+   Used two ways: `.on-dark` for the dark sections that punctuate
+   a light page, and [data-theme="dark"] for a full dark mode.
+   Both redefine the same tokens, so a component written against
+   the tokens works in either without knowing which it is in.
+
+   This is not an inversion. Hover reverses direction — deeper on
+   light, brighter on dark — because a darker hover disappears
+   against a dark ground.
+   ============================================================ */
+
+.on-dark,
+:root[data-theme="dark"] {
+  --color-background:         #13110f;  /* warm near-black, not #000 */
+  --color-surface:            #1b1815;
+  --color-elevated:           #252017;
+
+  --color-foreground:         #f6f1e9;  /*                             16.75 */
+  --color-muted-foreground:   #a79c8e;  /*                              6.99 */
+  --color-subtle-foreground:  #8a8073;  /*                              4.86 */
+
+  --color-border:             #332c24;
+  --color-border-strong:      #7a6c5b;  /*                              3.70 */
+
+  --color-primary:            #e0703c;  /*                              5.88 */
+  --color-primary-hover:      #f08447;  /* brighter, not darker */
+  --color-primary-foreground: #1a1714;  /*                              5.57 */
+
+  --color-success:            #6fbf8c;  /*                              8.53 */
+  --color-warning:            #d9a441;  /*                              8.38 */
+  --color-error:              #e8776c;  /*                              6.54 */
+
+  /* The badge does not flip: the orange behind it does not flip. */
+  --color-spark:              #ff5a00;
+  --color-spark-foreground:   #1a1714;
 }
 
 * { -webkit-tap-highlight-color: transparent; }
@@ -64,8 +128,8 @@ html {
 }
 
 body {
-  background: var(--color-bone);
-  color: var(--color-ink);
+  background: var(--color-background);
+  color: var(--color-foreground);
   font-family: var(--font-sans);
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
@@ -76,10 +140,10 @@ body {
 
 body[data-locked="true"] { overflow: hidden; }
 
-::selection { background: var(--color-ink); color: var(--color-bone); }
+::selection { background: var(--color-foreground); color: var(--color-background); }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
 
@@ -162,7 +226,7 @@ body[data-locked="true"] { overflow: hidden; }
 }
 
 @utility rule-hairline {
-  border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  border-top: 1px solid var(--color-border);
 }
 
 /* ============================================================
@@ -266,4 +330,61 @@ body[data-locked="true"] { overflow: hidden; }
 @keyframes riseIn {
   from { transform: translate3d(0, 16px, 0); opacity: 0; }
   to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+/* ============================================================
+   STATES
+   ------------------------------------------------------------
+   One definition per state, so hover, focus, disabled and
+   selected look the same on every control in the store.
+   ============================================================ */
+
+@utility control-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Pressed is felt, not announced: scale only, never a colour change. */
+@utility press {
+  transition: transform var(--duration-fast) var(--ease-brand);
+}
+
+.press:active { transform: scale(0.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .press:active { transform: none; }
+}
+
+/* ============================================================
+   SKELETON
+   Shaped like the content it stands in for, never a spinner.
+   ============================================================ */
+
+@keyframes skeleton-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@utility skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-surface) 70%, transparent),
+    transparent
+  );
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after { animation: none; }
 }

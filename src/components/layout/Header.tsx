@@ -33,8 +33,8 @@ export function Header() {
     <header
       className={cx(
         "fixed inset-x-0 top-0 z-60 transition-[background-color,color,height,border-color] duration-200 ease-[cubic-bezier(.22,1,.36,1)]",
-        inverted ? "on-dark bg-transparent text-bone" : "bg-bone/92 text-ink backdrop-blur-md",
-        !inverted && scrolled && "border-b border-ink/8",
+        inverted ? "on-dark bg-transparent text-foreground" : "bg-background/90 text-foreground backdrop-blur-md",
+        !inverted && scrolled && "border-b border-border",
       )}
     >
       <div
@@ -112,7 +112,7 @@ export function Header() {
           >
             <HeartIcon />
             {ready && wishlistCount > 0 && (
-              <span className="absolute right-1.5 top-2 h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="absolute right-1.5 top-2 h-1.5 w-1.5 rounded-full bg-spark" />
             )}
           </Link>
           <button
@@ -123,7 +123,7 @@ export function Header() {
           >
             <BagIcon />
             {ready && count > 0 && (
-              <span className="type-meta absolute -right-0 top-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-accent px-1 text-[9px] leading-none text-ink">
+              <span className="type-meta absolute -right-0 top-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-spark px-1 text-[9px] leading-none text-spark-foreground">
                 {count}
               </span>
             )}

@@ -12,6 +12,8 @@ import {
   PRICE_BOUNDS,
   PRODUCTS,
 } from "@/lib/data/catalogue";
+import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/States";
 import { formatPrice, cx } from "@/lib/format";
 import type { Product } from "@/lib/data/types";
 
@@ -98,20 +100,20 @@ function Check({
   swatch?: string;
 }) {
   return (
-    <label className="type-body flex cursor-pointer items-center gap-3 py-1 text-graphite">
+    <label className="type-body flex cursor-pointer items-center gap-3 py-1 text-foreground">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-4 w-4 shrink-0 appearance-none border border-ink/25 bg-transparent checked:border-ink checked:bg-ink"
+        className="h-4 w-4 shrink-0 appearance-none border border-border-strong bg-transparent checked:border-foreground checked:bg-foreground"
       />
       {swatch && (
         <span
-          className="h-4 w-4 shrink-0 ring-1 ring-ink/10"
+          className="h-4 w-4 shrink-0 ring-1 ring-foreground/10"
           style={{ backgroundColor: swatch }}
         />
       )}
-      <span className={cx(checked && "text-ink")}>{label}</span>
+      <span className={cx(checked && "text-foreground")}>{label}</span>
     </label>
   );
 }
@@ -215,7 +217,7 @@ export function ShopBrowser() {
               aria-pressed={sizes.includes(s)}
               className={cx(
                 "type-meta min-h-11 px-3 py-3 transition-colors",
-                sizes.includes(s) ? "bg-ink text-bone" : "bg-ink/5 text-graphite hover:bg-ink/10",
+                sizes.includes(s) ? "bg-foreground text-background" : "bg-foreground/6 text-foreground hover:bg-foreground/12",
               )}
             >
               {s}
@@ -253,13 +255,13 @@ export function ShopBrowser() {
     <div className="shell pb-24 pt-28 lg:pt-40">
       <header className="pb-10 lg:pb-16">
         <h1 className="type-hero">Shop SLAEGA</h1>
-        <p className="type-body mt-6 max-w-lg text-stone">
+        <p className="type-body mt-6 max-w-lg text-muted-foreground">
           Every piece in the range. Filter by what you need, or take the whole
           collection in order.
         </p>
       </header>
 
-      <div className="rule-hairline sticky top-14 z-40 flex items-center justify-between gap-4 bg-bone/95 py-4 backdrop-blur-md lg:top-16">
+      <div className="rule-hairline sticky top-14 z-40 flex items-center justify-between gap-4 bg-background/92 py-4 backdrop-blur-md lg:top-16">
         <button
           type="button"
           onClick={() => setPanelOpen(true)}
@@ -267,12 +269,12 @@ export function ShopBrowser() {
         >
           Filter{activeCount > 0 && ` (${activeCount})`}
         </button>
-        <p className="type-meta hidden text-stone lg:block">
+        <p className="type-meta hidden text-muted-foreground lg:block">
           {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
         </p>
 
         <label className="type-meta flex items-center gap-3">
-          <span className="text-stone">Sort</span>
+          <span className="text-muted-foreground">Sort</span>
           <select
             value={sort}
             onChange={(e) => update("sort", e.target.value === "featured" ? null : e.target.value)}
@@ -300,7 +302,7 @@ export function ShopBrowser() {
               <button
                 type="button"
                 onClick={() => router.replace("/shop/", { scroll: false })}
-                className="type-meta link-underline mb-6 text-stone hover:text-ink"
+                className="type-meta link-underline mb-6 text-muted-foreground hover:text-foreground"
               >
                 Clear all ({activeCount})
               </button>
@@ -310,16 +312,19 @@ export function ShopBrowser() {
         </aside>
 
         {filtered.length === 0 ? (
-          <div className="py-24 text-center">
-            <p className="type-section">Nothing matches.</p>
-            <button
-              type="button"
-              onClick={() => router.replace("/shop/", { scroll: false })}
-              className="type-meta link-underline mt-6 text-stone hover:text-ink"
-            >
-              Clear filters
-            </button>
-          </div>
+          <EmptyState
+            title="Nothing matches those filters."
+            body="Try widening one of them, or start again with the full range."
+          >
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button onClick={() => router.replace("/shop/", { scroll: false })}>
+                Clear all filters
+              </Button>
+              <Button variant="secondary" onClick={() => router.replace("/shop/?sort=newest", { scroll: false })}>
+                See new arrivals
+              </Button>
+            </div>
+          </EmptyState>
         ) : (
           <div className="grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 lg:gap-x-8 lg:gap-y-20 xl:grid-cols-4">
             {filtered.map((product) => (
@@ -340,9 +345,9 @@ export function ShopBrowser() {
             type="button"
             aria-label="Close filters"
             onClick={() => setPanelOpen(false)}
-            className="absolute inset-0 bg-ink/45 motion-safe:animate-[fadeIn_.25s_ease]"
+            className="absolute inset-0 bg-scrim/55 motion-safe:animate-[fadeIn_.25s_ease]"
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-bone px-5 pb-8 pt-5 motion-safe:animate-[riseIn_.35s_cubic-bezier(.22,1,.36,1)]">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-background px-5 pb-8 pt-5 motion-safe:animate-[riseIn_.35s_cubic-bezier(.22,1,.36,1)]">
             <div className="flex items-center justify-between pb-4">
               <h2 className="type-meta">Filter</h2>
               <button
@@ -358,7 +363,7 @@ export function ShopBrowser() {
             <button
               type="button"
               onClick={() => setPanelOpen(false)}
-              className="type-meta mt-8 h-14 w-full bg-ink text-bone"
+              className="type-meta mt-8 h-14 w-full bg-foreground text-background"
             >
               Show {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
             </button>

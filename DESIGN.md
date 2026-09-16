@@ -12,30 +12,90 @@ temporarily off screen.
 
 ## 1. Colour
 
-| Token | Value | Use |
+Every value was contrast-checked against the surface it sits on before it
+entered the system, and re-measured against the rendered pages. The ratios
+below are computed, not estimated.
+
+### Light
+
+| Token | Value | Role | Ratio |
+| --- | --- | --- | --- |
+| `--color-background` | `#FAF7F2` | Warm ivory. The page ground — the 60%. | — |
+| `--color-surface` | `#FFFDFA` | Product frames, drawers, sheets. | — |
+| `--color-elevated` | `#FFFFFF` | Modals and the cart drawer. | — |
+| `--color-foreground` | `#1A1714` | Deep charcoal, warm-biased. | 16.70 |
+| `--color-muted-foreground` | `#6B6259` | Metadata, descriptions, placeholders. | 5.59 |
+| `--color-subtle-foreground` | `#8C8279` | Large decorative text only. | 3.52 |
+| `--color-border` | `#E6DED2` | Decorative hairline. | — |
+| `--color-border-strong` | `#8C7D68` | Control boundaries. | 3.74 |
+| `--color-primary` | `#A8421C` | Terracotta. CTAs, prices, selected, focus. | 5.68 |
+| `--color-primary-hover` | `#8F3A1C` | One step deeper. | 7.41 |
+| `--color-primary-foreground` | `#FFFDFA` | On the primary fill. | 5.98 |
+| `--color-success` | `#2F6B45` | | 5.94 |
+| `--color-warning` | `#8A5A12` | | 5.53 |
+| `--color-error` | `#A3342B` | | 6.37 |
+| `--color-spark` | `#FF5A00` | The logo's orange. Badge fills only. | — |
+| `--color-spark-foreground` | `#1A1714` | Pinned in both themes. | 5.71 |
+| `--color-scrim` | `#100E0C` | Behind panels and over photographs. Never flips. | — |
+
+### Dark
+
+Used two ways: `.on-dark` for the dark sections that punctuate a light page,
+and `[data-theme="dark"]` for a full dark mode. Both redefine the same
+tokens, so a component written against the tokens works in either.
+
+| Token | Value | Ratio |
 | --- | --- | --- |
-| `--color-ink` | `#0A0A0A` | Header, footer, primary text, dark sections, primary CTA |
-| `--color-graphite` | `#1C1C1C` | Secondary text, dark surfaces, hover states |
-| `--color-bone` | `#F5F3EE` | Page background, editorial sections |
-| `--color-paper` | `#FFFFFF` | Text on dark, the cleanest surfaces |
-| `--color-stone` | `#8C8982` | Metadata, labels, descriptions |
-| `--color-sand` | `#D8D0C3` | Quiet editorial accent |
-| `--color-accent` | `#FF5A00` | The signature |
+| `--color-background` | `#13110F` | warm near-black, not `#000` |
+| `--color-surface` | `#1B1815` | |
+| `--color-elevated` | `#252017` | |
+| `--color-foreground` | `#F6F1E9` | 16.75 |
+| `--color-muted-foreground` | `#A79C8E` | 6.99 |
+| `--color-border-strong` | `#7A6C5B` | 3.70 |
+| `--color-primary` | `#E0703C` | 5.88 |
+| `--color-primary-hover` | `#F08447` | **brighter, not darker** |
+| `--color-success` / `warning` / `error` | `#6FBF8C` / `#D9A441` / `#E8776C` | 8.53 / 8.38 / 6.54 |
 
-Approximate ratio per page: **65 %** bone/white, **25 %** ink/graphite,
-**8 %** neutrals, **2 %** accent.
+### The accent, and why there are two oranges
 
-### The accent
+The logo carries `#FF5A00`. Measured, it fails as a UI accent: 2.93 as text
+on ivory, 3.13 with white on it. It works in exactly one configuration — a
+small fill with charcoal on it.
 
-The brief proposed a lime accent. The supplied logo carries its own accent —
-`#FF5A00` — in the artwork itself, so **that orange is the accent across the
-site**. A second accent beside the mark would read as two brands.
+So the logo keeps `#FF5A00` exactly as authored, and the interface uses a
+terracotta from the same warm family, `#A8421C`, which clears AA as text, as
+a button fill and as a focus ring. One hue family, two jobs: the orange is
+the brand's signature, the terracotta is the interface's instrument.
 
-It is used with restraint: the NEW badge, `DROP 01 — LIVE NOW`, active
-states, a single graphic detail in a dark scene. Never a background, never
-all links, never all buttons. Changing it is one token in `globals.css`.
+### Distribution — 60 / 30 / 10
 
----
+The accent is allowed on: the one primary CTA per screen, the price on the
+product page, the selected swatch / size / filter, the focus ring, and
+edition badges.
+
+It is not allowed on: card backgrounds, headings, body text, every link
+(links are charcoal with an underline), grid prices, or anything decorative.
+
+### Two rules the measurement forced
+
+- **Borders split into two tokens.** A soft beige hairline measures 1.25 —
+  fine for a decorative separator, which WCAG exempts, but not for an input
+  boundary where the border is the only thing saying "this is a field".
+- **Text hierarchy never uses opacity.** `text-foreground/75` composites
+  differently on every ground and cannot be verified. Secondary text takes
+  `--color-muted-foreground`, which is a real colour with a known ratio.
+
+### States
+
+| State | Treatment |
+| --- | --- |
+| Hover | Surface steps one level; primary moves to `--color-primary-hover`, 150 ms. |
+| Active | `scale(0.98)`, no colour change. The press is felt, not announced. |
+| Focus | 2px `--color-primary` ring, 3px offset. Never removed. |
+| Disabled | 40% opacity, `not-allowed`. No colour substitution. |
+| Selected | Primary fill with `--color-primary-foreground`. |
+| Loading | `.skeleton` shaped like the content. No spinner on a product grid. |
+| Success / Error | Semantic colour on the text plus a rule. Never a filled banner. |
 
 ## 2. Typography
 

@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getProductById } from "@/lib/data/catalogue";
+import { EmptyState } from "@/components/ui/States";
+import { ProductGridSkeleton } from "@/components/ui/Skeleton";
 import { useStore } from "@/lib/state/StoreProvider";
 
 export function WishlistView() {
@@ -17,20 +18,15 @@ export function WishlistView() {
       <h1 className="type-hero">Wishlist</h1>
 
       {!ready ? (
-        <div className="min-h-[40vh]" aria-busy="true" />
-      ) : products.length === 0 ? (
-        <div className="py-24">
-          <p className="type-section">Nothing saved yet.</p>
-          <p className="type-body mt-5 max-w-md text-stone">
-            Save pieces as you browse — the heart on any product card keeps them here.
-          </p>
-          <Link
-            href="/shop/"
-            className="type-meta mt-8 inline-flex h-14 items-center bg-ink px-8 text-bone transition-colors hover:bg-graphite"
-          >
-            Shop SLAEGA
-          </Link>
+        <div className="pt-12 lg:pt-16">
+          <ProductGridSkeleton count={4} />
         </div>
+      ) : products.length === 0 ? (
+        <EmptyState
+          title="Nothing saved yet."
+          body="Save pieces as you browse — the heart on any product card keeps them here."
+          action={{ label: "Shop SLAEGA", href: "/shop/" }}
+        />
       ) : (
         <div className="grid grid-cols-2 gap-x-5 gap-y-14 pt-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-20 lg:pt-16">
           {products.map((product) => (

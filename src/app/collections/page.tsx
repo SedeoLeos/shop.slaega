@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { ProductMockup } from "@/components/product/mockup/ProductMockup";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/Icons";
-import { COLLECTIONS, PRODUCTS } from "@/lib/data/catalogue";
+import { COLLECTIONS, MATERIALS, PRODUCTS } from "@/lib/data/catalogue";
 import type { SceneName } from "@/components/sections/Scene";
 import type { MockupType } from "@/lib/data/types";
 
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     "Drop 01, Essentials and Movement — the three lines that make up the SLAEGA range.",
 };
 
-type Art = { scene: SceneName; piece: MockupType; color: string; ink: string };
+type Art = { scene: SceneName; piece: MockupType; material: keyof typeof MATERIALS };
 
 const ART: Record<string, Art> = {
-  signature: { scene: "shadow", piece: "hoodie", color: "#6b5f54", ink: "#f5f3ee" },
-  "drop-01": { scene: "night", piece: "hoodie", color: "#111110", ink: "#f5f3ee" },
-  essentials: { scene: "studio", piece: "tshirt", color: "#eae5db", ink: "#0a0a0a" },
-  movement: { scene: "dusk", piece: "jacket", color: "#3a3d42", ink: "#f5f3ee" },
+  signature: { scene: "shadow", piece: "hoodie", material: "clay" },
+  "drop-01": { scene: "night", piece: "hoodie", material: "black" },
+  essentials: { scene: "studio", piece: "tshirt", material: "bone" },
+  movement: { scene: "dusk", piece: "jacket", material: "slate" },
 };
 
 /* A collection added without art direction still renders, rather than
@@ -29,8 +29,7 @@ const ART: Record<string, Art> = {
 const FALLBACK_ART: Art = {
   scene: "studio",
   piece: "tshirt",
-  color: "#eae5db",
-  ink: "#0a0a0a",
+  material: "bone",
 };
 
 export default function CollectionsPage() {
@@ -38,7 +37,7 @@ export default function CollectionsPage() {
     <div className="pb-24 pt-28 lg:pt-40">
       <header className="shell pb-14 lg:pb-24">
         <h1 className="type-hero">Collections</h1>
-        <p className="type-body mt-6 max-w-lg text-stone">
+        <p className="type-body mt-6 max-w-lg text-muted-foreground">
           Three lines, one wardrobe. Each is built around a different way a day
           asks to be dressed.
         </p>
@@ -46,13 +45,14 @@ export default function CollectionsPage() {
 
       {COLLECTIONS.map((collection, index) => {
         const art = ART[collection.id] ?? FALLBACK_ART;
+        const material = MATERIALS[art.material];
         const products = PRODUCTS.filter((p) => p.collection === collection.id);
         const dark = collection.id !== "essentials";
 
         return (
           <section
             key={collection.id}
-            className={dark ? "on-dark bg-ink text-bone" : "bg-bone"}
+            className={dark ? "on-dark bg-background text-foreground" : "bg-background"}
             aria-labelledby={`collection-${collection.id}`}
           >
             <div className="shell py-16 lg:py-28">
@@ -66,8 +66,8 @@ export default function CollectionsPage() {
                   <Scene name={art.scene} />
                   <ProductMockup
                     type={art.piece}
-                    color={art.color}
-                    logoInk={art.ink}
+                    color={material.hex}
+                    logoInk={material.logoInk}
                     logoAsset="lockup"
                     logoPosition={art.piece === "jacket" ? "left-chest" : "center-chest"}
                     logoSize={art.piece === "jacket" ? "small" : "medium"}
@@ -79,7 +79,7 @@ export default function CollectionsPage() {
                 </Reveal>
 
                 <div className="flex flex-col justify-center">
-                  <Reveal as="p" className="type-meta text-accent">
+                  <Reveal as="p" className="type-meta text-primary">
                     {collection.label}
                   </Reveal>
                   <Reveal
@@ -92,7 +92,7 @@ export default function CollectionsPage() {
                   </Reveal>
                   <Reveal
                     as="p"
-                    className={`type-body mt-7 max-w-md ${dark ? "text-bone/60" : "text-graphite/80"}`}
+                    className={`type-body mt-7 max-w-md ${dark ? "text-muted-foreground" : "text-muted-foreground"}`}
                     delay={130}
                   >
                     {collection.description}
@@ -101,7 +101,7 @@ export default function CollectionsPage() {
                     <Link
                       href={`/shop/?collection=${collection.id}`}
                       className={`type-meta group mt-10 inline-flex h-14 items-center gap-3 px-8 transition-colors duration-200 ${
-                        dark ? "bg-bone text-ink hover:bg-white" : "bg-ink text-bone hover:bg-graphite"
+                        dark ? "bg-background text-foreground hover:bg-primary hover:text-primary-foreground" : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground"
                       }`}
                     >
                       Shop {collection.name}

@@ -32,10 +32,10 @@ export function LookbookStrip() {
 
         <Link
           href="/lookbook/"
-          className="group flex w-[60vw] shrink-0 snap-start flex-col justify-end bg-ink p-8 text-bone sm:w-[36vw] lg:w-[24vw] xl:w-[20vw]"
+          className="group flex w-[60vw] shrink-0 snap-start flex-col justify-end bg-foreground p-8 text-background sm:w-[36vw] lg:w-[24vw] xl:w-[20vw]"
         >
           <span className="type-section">See it all</span>
-          <span className="type-meta mt-4 inline-flex items-center gap-3 text-bone/60">
+          <span className="type-meta mt-4 inline-flex items-center gap-3 text-muted-foreground">
             Lookbook
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-1.5" />
           </span>

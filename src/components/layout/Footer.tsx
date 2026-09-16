@@ -6,7 +6,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="on-dark bg-ink text-bone">
+    <footer className="on-dark bg-background text-foreground">
       <div className="shell py-16 lg:py-24">
         <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           {/* Clear space around the mark is part of the lockup. */}
@@ -14,14 +14,14 @@ export function Footer() {
             <Link href="/" aria-label="SLAEGA — home" className="inline-block p-1">
               <SlaegaLogo className="h-7 w-auto" />
             </Link>
-            <p className="type-body mt-6 max-w-xs text-bone/55">
+            <p className="type-body mt-6 max-w-xs text-muted-foreground">
               Contemporary essentials for everyday movement.
             </p>
           </div>
 
           {FOOTER_NAV.map((group) => (
             <nav key={group.title} aria-label={group.title}>
-              <h2 className="type-meta text-bone/45">{group.title}</h2>
+              <h2 className="type-meta text-subtle-foreground">{group.title}</h2>
               <ul className="mt-5 space-y-3">
                 {group.links.map((link) => {
                   const external = link.href.startsWith("http");
@@ -32,14 +32,14 @@ export function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="type-body link-underline text-bone/80 hover:text-bone"
+                          className="type-body link-underline text-foreground hover:text-foreground"
                         >
                           {link.label}
                         </a>
                       ) : (
                         <Link
                           href={link.href}
-                          className="type-body link-underline text-bone/80 hover:text-bone"
+                          className="type-body link-underline text-foreground hover:text-foreground"
                         >
                           {link.label}
                         </Link>
@@ -52,9 +52,9 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-bone/12 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-24">
-          <p className="type-meta text-bone/45">© {year} SLAEGA</p>
-          <p className="type-meta text-bone/45">shop.slaega.com</p>
+        <div className="mt-16 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-24">
+          <p className="type-meta text-subtle-foreground">© {year} SLAEGA</p>
+          <p className="type-meta text-subtle-foreground">shop.slaega.com</p>
         </div>
       </div>
     </footer>
