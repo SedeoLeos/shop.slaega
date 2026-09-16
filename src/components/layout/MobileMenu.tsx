@@ -19,7 +19,7 @@ export function MobileMenu() {
     >
       <div className="shell flex h-16 items-center justify-between">
         <Link href="/" onClick={closeMenu} aria-label="SLAEGA — home">
-          <SlaegaLogo className="h-5 w-auto" />
+          <SlaegaLogo className="h-14 w-auto" />
         </Link>
         <button
           type="button"

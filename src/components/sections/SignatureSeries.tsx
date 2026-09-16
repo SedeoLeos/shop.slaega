@@ -29,9 +29,7 @@ export function SignatureSeries() {
             </Reveal>
           </div>
           <Reveal as="p" className="type-body max-w-sm text-muted-foreground" delay={130}>
-            In memory of the nineteenth of August. Signed, numbered, finite —
-            each piece carries the size of its run, and when a run closes it is
-            not remade.
+            Signed, numbered, finite.
           </Reveal>
         </div>
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SlaegaLogo } from "@/components/brand/SlaegaLogo";
+import { SlaegaSymbol } from "@/components/brand/SlaegaLogo";
 import { BagIcon, HeartIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/ui/Icons";
 import { PRIMARY_NAV } from "@/lib/data/editorial";
 import { useStore } from "@/lib/state/StoreProvider";
@@ -40,7 +40,7 @@ export function Header() {
       <div
         className={cx(
           "shell flex items-center justify-between transition-[height] duration-200",
-          scrolled ? "h-14 lg:h-16" : "h-16 lg:h-20",
+          scrolled ? "h-16 lg:h-20" : "h-20 lg:h-26",
         )}
       >
         {/* Left — mobile menu, desktop wordmark */}
@@ -58,7 +58,13 @@ export function Header() {
             className="hidden py-2 pr-6 lg:block"
             aria-label="SLAEGA — home"
           >
-            <SlaegaLogo className={cx("w-auto transition-[height] duration-200", scrolled ? "h-5" : "h-6")} />
+            <SlaegaSymbol
+              className={cx(
+                "w-auto transition-[height] duration-[var(--duration-base)]",
+                scrolled ? "h-9" : "h-12",
+              )}
+              title="SLAEGA"
+            />
           </Link>
         </div>
 
@@ -85,7 +91,7 @@ export function Header() {
         </nav>
 
         <Link href="/" className="py-2 lg:hidden" aria-label="SLAEGA — home">
-          <SlaegaLogo className="h-5 w-auto" />
+          <SlaegaSymbol className="h-9 w-auto" title="SLAEGA" />
         </Link>
 
         {/* Right — utilities */}

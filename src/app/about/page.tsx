@@ -5,6 +5,8 @@ import { ProductMockup } from "@/components/product/mockup/ProductMockup";
 import { MATERIALS } from "@/lib/data/catalogue";
 import { Reveal } from "@/components/ui/Reveal";
 import { SlaegaSymbol } from "@/components/brand/SlaegaLogo";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FLAT } from "@/lib/currency";
+import { formatPrice } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "About",
@@ -31,7 +33,7 @@ const HELP = [
   {
     id: "shipping",
     title: "Shipping",
-    body: "Free delivery over 50\u202F000 FCFA, 3\u202F000 FCFA below it. Orders leave within 48 hours and arrive in 2–5 working days. Tracking is sent on dispatch.",
+    body: `Free delivery over ${formatPrice(FREE_SHIPPING_THRESHOLD)}, ${formatPrice(SHIPPING_FLAT)} below it. Orders leave within 48 hours and arrive in 2–5 working days. Tracking is sent on dispatch.`,
   },
   {
     id: "returns",

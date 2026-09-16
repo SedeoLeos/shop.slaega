@@ -7,6 +7,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/Icons";
 import { COLLECTIONS, MATERIALS, PRODUCTS } from "@/lib/data/catalogue";
 import { EmptyState } from "@/components/ui/States";
+import { formatPrice } from "@/lib/format";
+import { CATEGORIES } from "@/lib/data/catalogue";
 import type { SceneName } from "@/components/sections/Scene";
 import type { MockupType } from "@/lib/data/types";
 
@@ -51,6 +53,14 @@ export default function CollectionsPage() {
         const art = ART[collection.id] ?? FALLBACK_ART;
         const material = MATERIALS[art.material];
         const products = PRODUCTS.filter((p) => p.collection === collection.id);
+
+        /* What the collection actually holds — drawn from the pieces
+           themselves, so it can never drift from the catalogue. */
+        const categories = CATEGORIES.filter((c) =>
+          products.some((p) => p.category === c.id),
+        ).map((c) => c.name);
+        const prices = products.map((p) => p.price);
+        const editions = products.filter((p) => p.edition).length;
         const dark = index % 2 === 1;
 
         return (
@@ -97,6 +107,39 @@ export default function CollectionsPage() {
                   {collection.description && (
                     <Reveal as="p" className="type-body mt-7 max-w-md text-muted-foreground" delay={130}>
                       {collection.description}
+                    </Reveal>
+                  )}
+
+                  {products.length > 0 && (
+                    <Reveal delay={160}>
+                      <dl className="type-meta mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-muted-foreground">
+                        <div>
+                          <dt className="sr-only">Pieces</dt>
+                          <dd className="text-foreground">
+                            {products.length} {products.length === 1 ? "piece" : "pieces"}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="sr-only">Categories</dt>
+                          <dd>{categories.join(" · ")}</dd>
+                        </div>
+                        <div>
+                          <dt className="sr-only">Price range</dt>
+                          <dd className="tabular-nums">
+                            {Math.min(...prices) === Math.max(...prices)
+                              ? formatPrice(prices[0])
+                              : `${formatPrice(Math.min(...prices))} — ${formatPrice(Math.max(...prices))}`}
+                          </dd>
+                        </div>
+                        {editions > 0 && (
+                          <div>
+                            <dt className="sr-only">Limited runs</dt>
+                            <dd className="text-primary">
+                              {editions} limited {editions === 1 ? "run" : "runs"}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
                     </Reveal>
                   )}
                   <Reveal delay={190}>

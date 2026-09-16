@@ -4,6 +4,8 @@ import { MATERIALS } from "@/lib/data/catalogue";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/Icons";
 import { ButtonLink } from "@/components/ui/Button";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/currency";
+import { formatPrice } from "@/lib/format";
 
 /* Campaign opener. Full bleed, one photograph's worth of light,
    the statement set low-left with room around it. */
@@ -64,7 +66,7 @@ export function Hero() {
 
       <div className="shell relative pb-8">
         <div className="type-meta flex items-center justify-between border-t border-border pt-5 text-subtle-foreground">
-          <span>Free delivery over 50\u202F000 FCFA</span>
+          <span>Free delivery over {formatPrice(FREE_SHIPPING_THRESHOLD)}</span>
           <span className="hidden sm:inline">Autumn / Winter 26</span>
           <span>Scroll</span>
         </div>

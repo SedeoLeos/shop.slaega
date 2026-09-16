@@ -1,8 +1,10 @@
 import { imageFitFor } from "@/lib/images/queries";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FLAT, formatPrice } from "@/lib/currency";
 import manifest from "./product-images.json";
 import type {
   Category,
   Collection,
+  CollectionId,
   ColorOption,
   Product,
 } from "./types";
@@ -150,8 +152,7 @@ export const COLLECTIONS: Collection[] = [
     name: "SLAEGA 19",
     label: "SLAEGA 19",
     statement: "19 AOÛT.",
-    description:
-      "In memory of the nineteenth of August. A date needs no argument — it is the collection that says SLAEGA is people, not a logo.",
+    description: "Le 19 août.",
   },
   {
     id: "king-sedeo-leos",
@@ -169,8 +170,7 @@ const CARE_COTTON = {
 
 const SHIPPING = {
   label: "Shipping",
-  value:
-    "Free delivery over 50\u202F000 FCFA, 3\u202F000 FCFA below it. Dispatched within 48 hours.",
+  value: `Free delivery over ${formatPrice(FREE_SHIPPING_THRESHOLD)}, ${formatPrice(SHIPPING_FLAT)} below it. Dispatched within 48 hours.`,
 };
 
 const RETURNS = {
@@ -903,6 +903,13 @@ export const PRODUCTS: Product[] = CATALOGUE.map(withPhoto);
 /* ------------------------------------------------------------
    Selectors — the only way UI reaches the catalogue.
    ------------------------------------------------------------ */
+
+export const getCollection = (id: CollectionId): Collection | undefined =>
+  COLLECTIONS.find((c) => c.id === id);
+
+/** Every piece in a collection, in curation order. */
+export const getCollectionProducts = (id: CollectionId): Product[] =>
+  PRODUCTS.filter((p) => p.collection === id).sort((a, b) => a.rank - b.rank);
 
 export const getProduct = (slug: string): Product | undefined =>
   PRODUCTS.find((p) => p.slug === slug);

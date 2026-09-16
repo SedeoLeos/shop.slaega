@@ -5,6 +5,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ProductVisual } from "./ProductVisual";
 import { CloseIcon } from "@/components/ui/Icons";
+import { getCollection } from "@/lib/data/catalogue";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice, cx } from "@/lib/format";
 import type { Product } from "@/lib/data/types";
@@ -18,6 +19,7 @@ export function QuickView({ product, onClose }: { product: Product; onClose: () 
 
   if (typeof document === "undefined") return null;
   const color = product.colors[colorIndex];
+  const collection = getCollection(product.collection);
 
   return createPortal(
     <div className="fixed inset-0 z-90 flex items-end justify-center md:items-center">
@@ -52,7 +54,10 @@ export function QuickView({ product, onClose }: { product: Product; onClose: () 
         </div>
 
         <div className="p-6 md:p-10">
-          <h2 className="type-section">{product.name}</h2>
+          {collection && (
+            <p className="type-meta text-muted-foreground">{collection.label}</p>
+          )}
+          <h2 className="type-section mt-2">{product.name}</h2>
           <p className="type-title mt-3 tabular-nums">{formatPrice(product.price)}</p>
           <p className="type-body mt-4 text-muted-foreground">{product.tagline}</p>
 

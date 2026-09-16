@@ -65,11 +65,11 @@
   --foreground: var(--color-foreground);
   --accent: var(--color-spark);
 
-  --header-h: 64px;
+  --header-h: 80px;
 }
 
 @media (min-width: 1024px) {
-  :root { --header-h: 80px; }
+  :root { --header-h: 104px; }
 }
 
 /* ============================================================
@@ -109,6 +109,13 @@
   /* The badge does not flip: the orange behind it does not flip. */
   --color-spark:              #ff5a00;
   --color-spark-foreground:   #1a1714;
+
+  /* Re-stated, not inherited. A custom property whose value contains
+     var() is substituted where it is *declared*, so the :root version
+     of --foreground computes to the light charcoal and inherits down
+     unchanged — the mark would stay dark on a dark ground. */
+  --foreground: #f6f1e9;
+  --accent: #ff5a00;
 }
 
 * { -webkit-tap-highlight-color: transparent; }

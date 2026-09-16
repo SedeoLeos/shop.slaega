@@ -12,7 +12,7 @@ export function Footer() {
           {/* Clear space around the mark is part of the lockup. */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" aria-label="SLAEGA — home" className="inline-block p-1">
-              <SlaegaLogo className="h-7 w-auto" />
+              <SlaegaLogo className="h-12 w-auto" />
             </Link>
             <p className="type-body mt-6 max-w-xs text-muted-foreground">
               Contemporary essentials for everyday movement.

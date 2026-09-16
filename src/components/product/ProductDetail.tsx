@@ -8,6 +8,8 @@ import { ChevronIcon, HeartIcon, MinusIcon, PlusIcon } from "@/components/ui/Ico
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Price } from "@/components/ui/Price";
+import { CollectionNote } from "./CollectionNote";
+import { getCollection } from "@/lib/data/catalogue";
 import { useStore } from "@/lib/state/StoreProvider";
 import { cx } from "@/lib/format";
 import type { Product } from "@/lib/data/types";
@@ -63,6 +65,7 @@ export function ProductDetail({
   const [quantity, setQuantity] = useState(1);
 
   const color = product.colors[colorIndex];
+  const collection = getCollection(product.collection);
   const wishlisted = ready && isWishlisted(product.id);
   const oneSize = product.sizes.length === 1;
 
@@ -74,8 +77,11 @@ export function ProductDetail({
             Shop
           </Link>
           <span className="px-2">/</span>
-          <Link href={`/shop/?category=${product.category}`} className="link-underline hover:text-foreground">
-            {product.category}
+          <Link
+            href={`/shop/?collection=${product.collection}`}
+            className="link-underline hover:text-foreground"
+          >
+            {collection?.name ?? product.category}
           </Link>
           <span className="px-2">/</span>
           <span className="text-foreground">{product.name}</span>
@@ -94,6 +100,15 @@ export function ProductDetail({
               >
                 {product.edition.label}
               </Badge>
+            )}
+
+            {collection && (
+              <Link
+                href={`/shop/?collection=${collection.id}`}
+                className="type-meta link-underline mb-3 inline-block text-muted-foreground"
+              >
+                {collection.label}
+              </Link>
             )}
 
             <h1 className="type-display">{product.name}</h1>
@@ -220,6 +235,8 @@ export function ProductDetail({
                 <Accordion key={detail.label} label={detail.label} value={detail.value} />
               ))}
             </div>
+
+            <CollectionNote collection={product.collection} className="mt-12" />
           </div>
         </div>
       </div>

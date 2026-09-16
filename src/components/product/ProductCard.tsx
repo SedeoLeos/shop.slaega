@@ -7,6 +7,7 @@ import { QuickView } from "./QuickView";
 import { HeartIcon } from "@/components/ui/Icons";
 import { Badge } from "@/components/ui/Badge";
 import { Price } from "@/components/ui/Price";
+import { getCollection } from "@/lib/data/catalogue";
 import { useStore } from "@/lib/state/StoreProvider";
 import { formatPrice, cx } from "@/lib/format";
 import type { Product } from "@/lib/data/types";
@@ -24,6 +25,7 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
   const { toggleWishlist, isWishlisted, ready } = useStore();
 
   const color = product.colors[colorIndex];
+  const collection = getCollection(product.collection);
   const wishlisted = ready && isWishlisted(product.id);
   const hoverPosition = product.mockup.hoverPosition ?? product.mockup.logoPosition;
 
@@ -100,6 +102,9 @@ export function ProductCard({ product, size = "default" }: ProductCardProps) {
         {/* Name and price stack rather than share a baseline: a CFA franc
             price runs three times the length of a euro one and cannot sit
             beside a product name in a grid column. */}
+        {collection && (
+          <p className="type-meta mb-2 text-muted-foreground">{collection.name}</p>
+        )}
         <h3
           className={cx(
             "text-balance",
